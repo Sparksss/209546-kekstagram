@@ -13,12 +13,12 @@ var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-// var getUserPhotos = function (i) {
-//   return {url: 'photos/' + i + '.jpg', likes: getRandomNumber(15, 200), comments: userComment};
-// };
-for (var i = 0; i < 25; i++) {
-  // var userComment = comments[getRandomNumber(0, 7)];
-  console.log(getRandomNumber(0, 7));
+var getUserPhotos = function (number, comment, i) {
+  return {url: 'photos/' + i + '.jpg', likes: number, comments: comment};
+};
+var commentsLenght = comments.length;
+for (var i = 0; i < commentsLenght; i++) {
+  var randomNumber = getRandomNumber(15, 200);
+  var userComment = comments[getRandomNumber(0, 7)];
+  console.log(getUserPhotos(randomNumber, userComment, i));
 }
-
- var
