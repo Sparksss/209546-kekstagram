@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Илья Рогаткин](https://up.htmlacademy.ru/javascript/10/user/209546).
-* Наставник: `Алексей Хапов`.
+* Наставник: [Алексей Хапов](https://htmlacademy.ru/profile/id118459).
 
 ---
 
