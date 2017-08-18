@@ -33,20 +33,18 @@ var getUserPhotos = function (i) {
 var getRenderPhoto = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < 25; i++) {
-    getRenderPictures(fragment);
+    getRenderPictures(fragment, i);
   }
   return fragment;
 };
 
-var getRenderPictures = function (fragment) {
-  var i = 1;
+var getRenderPictures = function (fragment, i) {
   var photoElement = pictureTemplate.cloneNode(true);
   var photoInformation = getUserPhotos(i);
   photoElement.childNodes[1].src = photoInformation.url;
   photoElement.querySelector('.picture-comments').textContent = photoInformation.comments;
   photoElement.querySelector('.picture-likes').textContent = photoInformation.likes;
   fragment.appendChild(photoElement);
-  i++;
 };
 
 similarPicturesElement.appendChild(getRenderPhoto());
