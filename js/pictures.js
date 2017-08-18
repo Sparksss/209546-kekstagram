@@ -1,5 +1,14 @@
 'use strict';
 
+var similarPicturesElement = document.querySelector('.pictures');
+var pictureTemplate = document.querySelector('#picture-template').content;
+var CLASS_HIDDEN = 'hidden';
+
+var croppingForm = document.querySelector('.upload-overlay');
+croppingForm.classList.add(CLASS_HIDDEN);
+
+var galleryOverlay = document.querySelector('.gallery-overlay');
+
 var comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -13,12 +22,32 @@ var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var getUserPhotos = function (number, comment, i) {
-  return {url: 'photos/' + i + '.jpg', likes: number, comments: comment};
+var getUserPhotos = function (i) {
+  return {
+    url: 'photos/' + i + '.jpg',
+    likes: getRandomNumber(15, 200),
+    comments: comments[getRandomNumber(0, 7)]
+  };
 };
-var commentsLenght = comments.length;
-for (var i = 0; i < commentsLenght; i++) {
-  var randomNumber = getRandomNumber(15, 200);
-  var userComment = comments[getRandomNumber(0, 7)];
-  console.log(getUserPhotos(randomNumber, userComment, i));
-}
+
+var getRenderPhoto = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < 25; i++) {
+    getRenderPictures(fragment);
+  }
+  return fragment;
+};
+
+var getRenderPictures = function (fragment) {
+  var i = 1;
+  var photoElement = pictureTemplate.cloneNode(true);
+  var photoInformation = getUserPhotos(i);
+  photoElement.childNodes[1].src = photoInformation.url;
+  photoElement.querySelector('.picture-comments').textContent = photoInformation.comments;
+  photoElement.querySelector('.picture-likes').textContent = photoInformation.likes;
+  fragment.appendChild(photoElement);
+  i++;
+};
+
+similarPicturesElement.appendChild(getRenderPhoto());
+galleryOverlay.classList.remove(CLASS_HIDDEN);
