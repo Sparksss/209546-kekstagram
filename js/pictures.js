@@ -47,18 +47,18 @@ var getRenderPhotos = function () {
   return fragment;
 };
 
-var getRenderPictures = function (i, photos) {
+var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
-  photoElement.childNodes[1].src = photos.url;
-  photoElement.querySelector('.picture-comments').textContent = photos.comments;
-  photoElement.querySelector('.picture-likes').textContent = photos.likes;
+  photoElement.childNodes[1].src = photo.url;
+  photoElement.querySelector('.picture-comments').textContent = photo.comments;
+  photoElement.querySelector('.picture-likes').textContent = photo.likes;
   return photoElement;
 };
 
 var getRenderPhoto = function (number) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
-  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments;
+  galleryOverlay.querySelector('.comments-count').textContent = getRandomNumber(10, 100);
 };
 
 croppingForm.classList.add(CLASS_HIDDEN);
