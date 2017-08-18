@@ -1,6 +1,6 @@
 'use strict';
 
-var similarPicturesElement = document.querySelector('.pictures');
+var similarPictureElement = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture-template').content;
 var CLASS_HIDDEN = 'hidden';
 
@@ -8,8 +8,6 @@ var croppingForm = document.querySelector('.upload-overlay');
 croppingForm.classList.add(CLASS_HIDDEN);
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
-
-var photosGallery = [];
 
 var comments = [
   'Всё отлично!',
@@ -33,28 +31,37 @@ var getUserPhotos = function (i) {
 };
 
 var getArrayPictures = function () {
+  var photoGallery = [];
   for (var i = 0; i < 25; i++) {
-    photosGallery[i] = getUserPhotos(i);
+    photoGallery[i] = getUserPhotos(i);
   }
-  return photosGallery;
+  return photoGallery;
 };
 
-var getRenderPhoto = function () {
+var photoGallery = getArrayPictures();
+
+var getRenderPhotos = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < 25; i++) {
-    getRenderPictures(fragment, i);
+    getRenderPictures(fragment, i, photoGallery[i]);
   }
   return fragment;
 };
 
-var getRenderPictures = function (fragment, i) {
+var getRenderPictures = function (fragment, i, photos) {
   var photoElement = pictureTemplate.cloneNode(true);
-  var photoInformation = getArrayPictures();
-  photoElement.childNodes[1].src = photoInformation.url;
-  photoElement.querySelector('.picture-comments').textContent = photoInformation.comments;
-  photoElement.querySelector('.picture-likes').textContent = photoInformation.likes;
+  photoElement.childNodes[1].src = photos.url;
+  photoElement.querySelector('.picture-comments').textContent = photos.comments;
+  photoElement.querySelector('.picture-likes').textContent = photos.likes;
   fragment.appendChild(photoElement);
 };
 
-similarPicturesElement.appendChild(getRenderPhoto());
-galleryOverlay.classList.remove(CLASS_HIDDEN);
+var getRenderPhoto = function (number) {
+  galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
+  galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
+  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments;
+  document.appendChild(galleryOverlay);
+};
+
+similarPictureElement.appendChild(getRenderPhotos());
+galleryOverlay.appendChild(getRenderPhoto(1));
