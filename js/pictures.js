@@ -5,7 +5,6 @@ var pictureTemplate = document.querySelector('#picture-template').content;
 var CLASS_HIDDEN = 'hidden';
 
 var croppingForm = document.querySelector('.upload-overlay');
-croppingForm.classList.add(CLASS_HIDDEN);
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
@@ -26,7 +25,7 @@ var getUserPhotos = function (i) {
   return {
     url: 'photos/' + i + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: comments[getRandomNumber(0, 7)]
+    comments: comments[getRandomNumber(comments.length)]
   };
 };
 
@@ -43,26 +42,26 @@ var photoGallery = getArrayPictures();
 var getRenderPhotos = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < 25; i++) {
-    getRenderPictures(fragment, i, photoGallery[i]);
+    fragment.appendChild(getRenderPictures(i, photoGallery[i]));
   }
   return fragment;
 };
 
-var getRenderPictures = function (fragment, i, photos) {
+var getRenderPictures = function (i, photos) {
   var photoElement = pictureTemplate.cloneNode(true);
   photoElement.childNodes[1].src = photos.url;
   photoElement.querySelector('.picture-comments').textContent = photos.comments;
   photoElement.querySelector('.picture-likes').textContent = photos.likes;
-  fragment.appendChild(photoElement);
+  return photoElement;
 };
 
 var getRenderPhoto = function (number) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
   galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments;
-  document.appendChild(galleryOverlay);
 };
 
+croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
 galleryOverlay.appendChild(getRenderPhoto(1));
