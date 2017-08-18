@@ -49,7 +49,7 @@ var getRenderPhotos = function () {
 
 var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
-  photoElement.childNodes[1].src = photo.url;
+  photoElement.querySelector('img').src = photo.url;
   photoElement.querySelector('.picture-comments').textContent = photo.comments;
   photoElement.querySelector('.picture-likes').textContent = photo.likes;
   return photoElement;
@@ -64,4 +64,4 @@ var getRenderPhoto = function (number) {
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
-galleryOverlay.appendChild(getRenderPhoto(1));
+getRenderPhoto(3);
