@@ -64,4 +64,5 @@ var getRenderPhoto = function (number) {
 };
 
 similarPictureElement.appendChild(getRenderPhotos());
+galleryOverlay.classList.remove(CLASS_HIDDEN);
 galleryOverlay.appendChild(getRenderPhoto(1));
