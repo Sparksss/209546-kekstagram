@@ -9,6 +9,8 @@ croppingForm.classList.add(CLASS_HIDDEN);
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
+var photosGallery = [];
+
 var comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -30,6 +32,13 @@ var getUserPhotos = function (i) {
   };
 };
 
+var getArrayPictures = function () {
+  for (var i = 0; i < 25; i++) {
+    photosGallery[i] = getUserPhotos(i);
+  }
+  return photosGallery;
+};
+
 var getRenderPhoto = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < 25; i++) {
@@ -40,7 +49,7 @@ var getRenderPhoto = function () {
 
 var getRenderPictures = function (fragment, i) {
   var photoElement = pictureTemplate.cloneNode(true);
-  var photoInformation = getUserPhotos(i);
+  var photoInformation = getArrayPictures();
   photoElement.childNodes[1].src = photoInformation.url;
   photoElement.querySelector('.picture-comments').textContent = photoInformation.comments;
   photoElement.querySelector('.picture-likes').textContent = photoInformation.likes;
