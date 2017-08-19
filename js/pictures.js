@@ -22,10 +22,14 @@ var getRandomNumber = function (min, max) {
 };
 
 var getUserPhotos = function (number) {
+  var temproraryComments = [];
+  for (var i = 0; i < getRandomNumber(0, comments.length - 1); i++) {
+    temproraryComments[i] = comments[i];
+  }
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: comments[getRandomNumber(0, comments.length - 1)]
+    comments: temproraryComments
   };
 };
 
@@ -60,9 +64,8 @@ var getRenderPictures = function (photo) {
 var showPhoto = function (number) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
-  galleryOverlay.querySelector('.comments-count').textContent = getRandomNumber(10, 100);
+  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
 };
-
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
