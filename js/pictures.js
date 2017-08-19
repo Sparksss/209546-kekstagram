@@ -22,11 +22,10 @@ var getRandomNumber = function (min, max) {
 };
 
 var getUserPhotos = function (number) {
-  var listComments = comments.length;
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: comments[getRandomNumber(listComments)]
+    comments: comments[getRandomNumber(comments.length)]
   };
 };
 
