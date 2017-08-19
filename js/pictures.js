@@ -23,7 +23,7 @@ var getRandomNumber = function (min, max) {
 
 var getRandomNumberComments = function () {
   var temporaryComments = [];
-  var commentsNumber = getRandomNumber(0, comments.length);
+  var commentsNumber = getRandomNumber(1, 50);
   for (var i = 0; i < commentsNumber; i++) {
     temporaryComments[i] = comments[i];
   }
