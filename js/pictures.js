@@ -32,10 +32,8 @@ var getUserPhotos = function (number) {
 
 var getArrayPictures = function () {
   var photoGallery = [];
-  var numberPhoto = 1;
   for (var i = 0; i <= 25; i++) {
-    photoGallery[i] = getUserPhotos(numberPhoto);
-    numberPhoto++;
+    photoGallery[i] = getUserPhotos(i + 1);
   }
   return photoGallery;
 };
