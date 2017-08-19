@@ -22,12 +22,12 @@ var getRandomNumber = function (min, max) {
 };
 
 var getRandomNumberComments = function () {
-  var temporaryComments = [];
-  var commentsNumber = getRandomNumber(1, 50);
+  var temproraryComments = [];
+  var commentsNumber = getRandomNumber(0, comments.length);
   for (var i = 0; i < commentsNumber; i++) {
-    temporaryComments[i] = comments[i];
+    temproraryComments[i] = comments[i];
   }
-  return temporaryComments;
+  return temproraryComments;
 };
 var getUserPhotos = function (number) {
   return {
@@ -68,7 +68,7 @@ var getRenderPictures = function (photo) {
 var showPhoto = function (number) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
-  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
+  galleryOverlay.querySelector('.comments-count').textContent = getRandomNumber(1, 50);
 };
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
