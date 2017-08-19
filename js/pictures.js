@@ -22,16 +22,17 @@ var getRandomNumber = function (min, max) {
 };
 
 var getUserPhotos = function (i) {
+  var listComments = comments.length;
   return {
     url: 'photos/' + i + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: comments[getRandomNumber(comments.length)]
+    comments: comments[getRandomNumber(listComments)]
   };
 };
 
 var getArrayPictures = function () {
   var photoGallery = [];
-  for (var i = 0; i < 25; i++) {
+  for (var i = 1; i < 25; i++) {
     photoGallery[i] = getUserPhotos(i);
   }
   return photoGallery;
@@ -41,7 +42,7 @@ var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < 25; i++) {
+  for (var i = 1; i < 25; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
@@ -64,4 +65,4 @@ var getRenderPhoto = function (number) {
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
-galleryOverlay.appendChild(getRenderPhoto(1));
+getRenderPhoto(1);
