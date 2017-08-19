@@ -42,11 +42,12 @@ var photoGallery = getArrayPictures();
 var getRenderPhotos = function () {
   var photoLength = photoGallery.length;
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i <= photoLength; i++) {
+  for (var i = 0; i < photoLength; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
 };
+
 
 var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
