@@ -27,6 +27,7 @@ var getRandomNumberComments = function () {
   for (var i = 0; i < commentsNumber; i++) {
     temproraryComments[i] = comments[i];
   }
+  return temproraryComments;
 };
 var getUserPhotos = function (number) {
   return {
