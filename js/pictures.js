@@ -41,9 +41,8 @@ var getArrayPictures = function () {
 var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
-  var galleryLength = photoGallery.length;
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i <= galleryLength; i++) {
+  for (var i = 0; i <= 25; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
