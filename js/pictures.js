@@ -21,15 +21,18 @@ var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var getUserPhotos = function (number) {
+var getRandomNumberComments = function () {
   var temproraryComments = [];
-  for (var i = 0; i < getRandomNumber(0, comments.length - 1); i++) {
+  var commentsNumber;
+  for (var i = 0; i < commentsNumber; i++) {
     temproraryComments[i] = comments[i];
   }
+};
+var getUserPhotos = function (number) {
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: temproraryComments
+    comments: getRandomNumberComments()
   };
 };
 
