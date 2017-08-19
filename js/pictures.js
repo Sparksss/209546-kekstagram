@@ -22,12 +22,12 @@ var getRandomNumber = function (min, max) {
 };
 
 var getRandomNumberComments = function () {
-  var temproraryComments = [];
+  var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, comments.length);
   for (var i = 0; i < commentsNumber; i++) {
-    temproraryComments[i] = comments[i];
+    temporaryComments[i] = comments[i];
   }
-  return temproraryComments;
+  return temporaryComments;
 };
 var getUserPhotos = function (number) {
   return {
