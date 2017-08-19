@@ -25,7 +25,7 @@ var getRandomNumberComments = function () {
   var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, 50);
   for (var i = 0; i < commentsNumber; i++) {
-    temporaryComments[i] = comments[i];
+    temporaryComments[i] = comments[getRandomNumber(0, 5)];
   }
   return temporaryComments;
 };
@@ -33,7 +33,7 @@ var getUserPhotos = function (number) {
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: getRandomNumberComments(getRandomNumber(0, 5))
+    comments: getRandomNumberComments()
   };
 };
 
