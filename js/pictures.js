@@ -66,10 +66,10 @@ var getRenderPictures = function (photo) {
 };
 
 var showPhoto = function (number) {
-  var commentsNumber = getRandomNumber(0, comments.length);
+
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
-  galleryOverlay.querySelector('.comments-count').textContent = commentsNumber;
+  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
 };
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
