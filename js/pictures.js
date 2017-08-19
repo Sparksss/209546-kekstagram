@@ -21,10 +21,10 @@ var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var getUserPhotos = function (i) {
+var getUserPhotos = function (number) {
   var listComments = comments.length;
   return {
-    url: 'photos/' + i + '.jpg',
+    url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
     comments: comments[getRandomNumber(listComments)]
   };
@@ -32,8 +32,10 @@ var getUserPhotos = function (i) {
 
 var getArrayPictures = function () {
   var photoGallery = [];
-  for (var i = 1; i < 25; i++) {
-    photoGallery[i] = getUserPhotos(i);
+  var numberPhoto = 1;
+  for (var i = 0; i <= 25; i++) {
+    photoGallery[i] = getUserPhotos(numberPhoto);
+    numberPhoto++;
   }
   return photoGallery;
 };
@@ -42,7 +44,7 @@ var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
   var fragment = document.createDocumentFragment();
-  for (var i = 1; i < 25; i++) {
+  for (var i = 0; i <= 25; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
