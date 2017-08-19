@@ -42,14 +42,14 @@ var photoGallery = getArrayPictures();
 var getRenderPhotos = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < 25; i++) {
-    fragment.appendChild(getRenderPictures(i, photoGallery[i]));
+    fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
 };
 
 var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
-  photoElement.childNodes[1].src = photo.url;
+  photoElement.querySelector('img').src = photo.url;
   photoElement.querySelector('.picture-comments').textContent = photo.comments;
   photoElement.querySelector('.picture-likes').textContent = photo.likes;
   return photoElement;
