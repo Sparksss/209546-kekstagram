@@ -41,8 +41,9 @@ var getArrayPictures = function () {
 var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
+  var galleryLength = photoGallery.length;
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i <= 25; i++) {
+  for (var i = 0; i <= galleryLength; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
@@ -56,7 +57,7 @@ var getRenderPictures = function (photo) {
   return photoElement;
 };
 
-var getRenderPhoto = function (number) {
+var showPhoto = function (number) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
   galleryOverlay.querySelector('.comments-count').textContent = getRandomNumber(10, 100);
@@ -65,4 +66,4 @@ var getRenderPhoto = function (number) {
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
-getRenderPhoto(1);
+showPhoto(0);
