@@ -25,7 +25,7 @@ var getUserPhotos = function (number) {
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
-    comments: comments[getRandomNumber(comments.length)]
+    comments: comments[getRandomNumber(0, comments.length - 1)]
   };
 };
 
@@ -40,8 +40,9 @@ var getArrayPictures = function () {
 var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
+  var photoLength = photoGallery - 1;
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i <= 25; i++) {
+  for (var i = 0; i <= photoLength; i++) {
     fragment.appendChild(getRenderPictures(photoGallery[i]));
   }
   return fragment;
