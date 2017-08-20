@@ -8,7 +8,7 @@ var croppingForm = document.querySelector('.upload-overlay');
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
-var comments = [
+var COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,35 +17,37 @@ var comments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-var getRandomNumber = function (min, max) {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
+var photoGallery = getArrayPictures();
 
-var getRandomNumberComments = function () {
+function getRandomNumber(min, max) {
+  return Math.floor(min + Math.random() * (max + 1 - min));
+}
+
+function getRandomNumberComments() {
   var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, 50);
   for (var i = 0; i < commentsNumber; i++) {
-    temporaryComments[i] = comments[getRandomNumber(0, 5)];
+    temporaryComments[i] = COMMENTS[getRandomNumber(0, 5)];
   }
   return temporaryComments;
-};
-var getUserPhotos = function (number) {
+}
+
+function getUserPhotos(number) {
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
     comments: getRandomNumberComments()
   };
-};
+}
 
-var getArrayPictures = function () {
-  var photoGallery = [];
+function getArrayPictures() {
+  var pictureGallery = [];
   for (var i = 0; i <= 25; i++) {
-    photoGallery[i] = getUserPhotos(i + 1);
+    pictureGallery[i] = getUserPhotos(i + 1);
   }
-  return photoGallery;
-};
+  return pictureGallery;
+}
 
-var photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
   var photoLength = photoGallery.length;
@@ -66,11 +68,11 @@ var getRenderPictures = function (photo) {
 };
 
 var showPhoto = function (number) {
-
   galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
   galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
 };
+
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
