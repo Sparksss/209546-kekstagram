@@ -82,11 +82,8 @@ var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
 var clickPictureHandler = function (evt) {
   clickedElement = evt.currentTarget;
-  if (clickedElement) {
-    showPhoto(clickedElement);
-    galleryOverlay.classList.remove(CLASS_HIDDEN);
-  }
-
+  galleryOverlay.classList.remove(CLASS_HIDDEN);
+  showPhoto(clickedElement);
 };
 
 for (var i = 0; i < pictureElements.length; i++) {
