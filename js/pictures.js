@@ -17,37 +17,38 @@ var COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-var photoGallery = getArrayPictures();
+var photoGallery;
 
-function getRandomNumber(min, max) {
+var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
-}
+};
 
-function getRandomNumberComments() {
+var getRandomNumberComments = function () {
   var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, 50);
   for (var i = 0; i < commentsNumber; i++) {
     temporaryComments[i] = COMMENTS[getRandomNumber(0, 5)];
   }
   return temporaryComments;
-}
+};
 
-function getUserPhotos(number) {
+var getUserPhotos = function(number) {
   return {
     url: 'photos/' + number + '.jpg',
     likes: getRandomNumber(15, 200),
     comments: getRandomNumberComments()
   };
-}
+};
 
-function getArrayPictures() {
+var getArrayPictures = function() {
   var pictureGallery = [];
   for (var i = 0; i <= 25; i++) {
     pictureGallery[i] = getUserPhotos(i + 1);
   }
   return pictureGallery;
-}
+};
 
+photoGallery = getArrayPictures();
 
 var getRenderPhotos = function () {
   var photoLength = photoGallery.length;
