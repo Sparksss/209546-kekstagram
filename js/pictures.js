@@ -1,14 +1,6 @@
 'use strict';
 
-var similarPictureElement = document.querySelector('.pictures');
-var pictureTemplate = document.querySelector('#picture-template').content;
-var CLASS_HIDDEN = 'hidden';
-
-var croppingForm = document.querySelector('.upload-overlay');
-
-var galleryOverlay = document.querySelector('.gallery-overlay');
-
-var comments = [
+var COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -16,6 +8,22 @@ var comments = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
+
+var CLASS_HIDDEN = 'hidden';
+
+var ESC_KEYWORD = 27;
+
+var ENTER_KEYWORD = 13;
+
+var similarPictureElement = document.querySelector('.pictures');
+var pictureTemplate = document.querySelector('#picture-template').content;
+
+var pictureElement = document.querySelector('.picture');
+
+var croppingForm = document.querySelector('.upload-overlay');
+
+var galleryOverlay = document.querySelector('.gallery-overlay');
+
 
 var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -25,7 +33,7 @@ var getRandomNumberComments = function () {
   var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, 50);
   for (var i = 0; i < commentsNumber; i++) {
-    temporaryComments[i] = comments[getRandomNumber(0, 5)];
+    temporaryComments[i] = COMMENTS[getRandomNumber(0, 5)];
   }
   return temporaryComments;
 };
@@ -71,6 +79,7 @@ var showPhoto = function (number) {
   galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
   galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
 };
+
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 galleryOverlay.classList.remove(CLASS_HIDDEN);
