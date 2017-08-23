@@ -11,10 +11,6 @@ var COMMENTS = [
 
 var CLASS_HIDDEN = 'hidden';
 
-var ESC_KEYWORD = 27;
-
-var ENTER_KEYWORD = 13;
-
 var similarPictureElement = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture-template').content;
 
