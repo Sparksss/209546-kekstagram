@@ -18,12 +18,11 @@ var ENTER_KEYWORD = 13;
 var similarPictureElement = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture-template').content;
 
-var pictureElement = document.querySelector('.picture');
-
 var croppingForm = document.querySelector('.upload-overlay');
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
+var clickedElement = null;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -73,14 +72,29 @@ var getRenderPictures = function (photo) {
   return photoElement;
 };
 
-var showPhoto = function (number) {
+var showPhoto = function (photoElement) {
 
-  galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[number].url;
-  galleryOverlay.querySelector('.likes-count').textContent = photoGallery[number].likes;
-  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[number].comments.length;
+  galleryOverlay.querySelector('.gallery-overlay-image').src = photoElement.querySelector('img').src;
+  galleryOverlay.querySelector('.likes-count').textContent = photoElement.querySelector('.likes-count').likes;
+  galleryOverlay.querySelector('.comments-count').textContent = photoElement.querySelector('.comments-count').comments.length;
 };
 
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
-galleryOverlay.classList.remove(CLASS_HIDDEN);
-showPhoto(0);
+
+var pictureElements = similarPictureElement.querySelectorAll('.picture');
+
+var clickPictureHandler = function (evt) {
+  clickedElement = evt.currentTarget;
+  if (clickedElement) {
+    showPhoto(clickedElement);
+    galleryOverlay.classList.remove(CLASS_HIDDEN);
+  }
+
+};
+
+for (var i = 0; i < pictureElements.length; i++) {
+  pictureElements[i].addEventListener('click', clickPictureHandler);
+}
+
+
