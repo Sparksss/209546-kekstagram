@@ -90,13 +90,13 @@ var onClickOpenGallery = function (indexPicture) {
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
-var addKeydownHandler = function () {
+var closePopup = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    addKeydownHandler();
+    closePopup();
   }
 });
 
@@ -112,10 +112,6 @@ var lengthPictureCollection = pictureElements.length;
 for (var i = 0; i < lengthPictureCollection; i++) {
   addClickHandler(i);
 }
-
-var closePopup = function () {
-  galleryOverlay.classList.add(CLASS_HIDDEN);
-};
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESCAPE_KEYCODE) {
