@@ -109,10 +109,6 @@ for (var i = 0; i < pictureElements.length; i++) {
   clickPictureHandler(i);
 }
 
-var onclickCloseGallery = function () {
-  galleryOverlay.classList.add(CLASS_HIDDEN);
-};
-
 var onGalleryEscPress = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
@@ -123,6 +119,6 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 closeGallery.addEventListener('click', function () {
-  onclickCloseGallery();
+  onGalleryEscPress();
 });
 
