@@ -90,13 +90,17 @@ var onClickOpenGallery = function (indexPicture) {
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
+var checkCloseGallery = 'gallery-overlay-close';
+
 var closePopup = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    closePopup();
+  if (evt.target.className === checkCloseGallery) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      closePopup();
+    }
   }
 });
 
