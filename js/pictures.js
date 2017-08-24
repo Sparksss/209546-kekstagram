@@ -82,25 +82,21 @@ similarPictureElement.appendChild(getRenderPhotos());
 
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
+var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
+
+var checkCloseGallery = 'gallery-overlay-close';
+
+var lengthPictureCollection = pictureElements.length;
+
 var onClickOpenGallery = function (indexPicture) {
   showPhoto(photoGallery[indexPicture]);
   galleryOverlay.classList.remove(CLASS_HIDDEN);
 
 };
 
-var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
-
-var checkCloseGallery = 'gallery-overlay-close';
-
 var closePopup = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
-
-document.addEventListener('keydown', function (evt) {
-  if (evt.target.className === checkCloseGallery && evt.keyCode === ENTER_KEYCODE) {
-    closePopup();
-  }
-});
 
 var addClickHandler = function (i) {
   pictureElements[i].addEventListener('click', function (evt) {
@@ -109,11 +105,15 @@ var addClickHandler = function (i) {
   });
 };
 
-var lengthPictureCollection = pictureElements.length;
-
 for (var i = 0; i < lengthPictureCollection; i++) {
   addClickHandler(i);
 }
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESCAPE_KEYCODE) {
