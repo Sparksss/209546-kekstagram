@@ -18,8 +18,6 @@ var croppingForm = document.querySelector('.upload-overlay');
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
-var clickedElement = null;
-
 var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
