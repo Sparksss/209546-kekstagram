@@ -90,13 +90,13 @@ var onClickOpenGallery = function (indexPicture) {
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
-var onGalleryEnterPress = function () {
+var addKeydownHandler = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    onGalleryEnterPress();
+    addKeydownHandler();
   }
 });
 
