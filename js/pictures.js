@@ -16,6 +16,7 @@ var ESCAPE_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
 var similarPictureElement = document.querySelector('.pictures');
+
 var pictureTemplate = document.querySelector('#picture-template').content;
 
 var croppingForm = document.querySelector('.upload-overlay');
@@ -100,15 +101,16 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
-var clickPictureHandler = function (i) {
+var onClickPicture = function (i) {
   pictureElements[i].addEventListener('click', function (evt) {
     onClickOpenGallery(i, evt);
   });
 };
 
 var lengthPictureCollection = pictureElements.length;
+
 for (var i = 0; i < lengthPictureCollection; i++) {
-  clickPictureHandler(i);
+  onClickPicture(i);
 }
 
 var onGalleryEscPress = function () {
