@@ -63,16 +63,15 @@ var getRenderPhotos = function () {
 var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
   photoElement.querySelector('img').src = photo.url;
-  photoElement.querySelector('.picture-comments').textContent = photo.comments;
+  photoElement.querySelector('.picture-comments').textContent = photo.comments.length;
   photoElement.querySelector('.picture-likes').textContent = photo.likes;
   return photoElement;
 };
 
-var showPhoto = function (photoElement) {
-
-  galleryOverlay.querySelector('.gallery-overlay-image').src = photoElement.querySelector('img').src;
-  galleryOverlay.querySelector('.likes-count').textContent = photoElement.querySelector('.likes-count').likes;
-  galleryOverlay.querySelector('.comments-count').textContent = photoElement.querySelector('.comments-count').comments.length;
+var showPhoto = function () {
+  galleryOverlay.querySelector('.gallery-overlay-image').src = clickedElement.querySelector('img').src;
+  galleryOverlay.querySelector('.likes-count').textContent = clickedElement.querySelector('.picture-likes').textContent;
+  galleryOverlay.querySelector('.comments-count').textContent = clickedElement.querySelector('.picture-comments').textContent;
 };
 
 croppingForm.classList.add(CLASS_HIDDEN);
@@ -80,14 +79,21 @@ similarPictureElement.appendChild(getRenderPhotos());
 
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
-var clickPictureHandler = function (evt) {
+var openGalleryOverlay = function (evt) {
+  evt.preventDefault();
   clickedElement = evt.currentTarget;
   galleryOverlay.classList.remove(CLASS_HIDDEN);
-  showPhoto(clickedElement);
+  showPhoto();
 };
 
+var closeGalleryOverlay = function () {
+  galleryOverlay.classList.add(CLASS_HIDDEN);
+};
+
+var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
+
 for (var i = 0; i < pictureElements.length; i++) {
-  pictureElements[i].addEventListener('click', clickPictureHandler);
+  pictureElements[i].addEventListener('click', openGalleryOverlay);
 }
 
-
+closeGallery.addEventListener('click', closeGalleryOverlay);
