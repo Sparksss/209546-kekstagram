@@ -83,8 +83,9 @@ var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
 var onClickOpenGallery = function (indexPicture, evt) {
   evt.preventDefault();
-  galleryOverlay.classList.remove(CLASS_HIDDEN);
   showPhoto(indexPicture);
+  galleryOverlay.classList.remove(CLASS_HIDDEN);
+
 };
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
@@ -105,7 +106,8 @@ var clickPictureHandler = function (i) {
   });
 };
 
-for (var i = 0; i < pictureElements.length; i++) {
+var lengthPictureCollection = pictureElements.length;
+for (var i = 0; i < lengthPictureCollection; i++) {
   clickPictureHandler(i);
 }
 
