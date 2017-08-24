@@ -70,10 +70,10 @@ var getRenderPictures = function (photo) {
   return photoElement;
 };
 
-var showPhoto = function (galleryElement) {
-  galleryOverlay.querySelector('.gallery-overlay-image').src = galleryElement.querySelector('img').src;
-  galleryOverlay.querySelector('.likes-count').textContent = galleryElement.querySelector('.picture-likes').textContent;
-  galleryOverlay.querySelector('.comments-count').textContent = galleryElement.querySelector('.picture-comments').textContent;
+var showPhoto = function (i) {
+  galleryOverlay.querySelector('.gallery-overlay-image').src = photoGallery[i].url;
+  galleryOverlay.querySelector('.likes-count').textContent = photoGallery[i].likes;
+  galleryOverlay.querySelector('.comments-count').textContent = photoGallery[i].comments.length;
 };
 
 croppingForm.classList.add(CLASS_HIDDEN);
@@ -81,10 +81,10 @@ similarPictureElement.appendChild(getRenderPhotos());
 
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
-var onClickOpenGallery = function (pictureElement, evt) {
+var onClickOpenGallery = function (indexPicture, evt) {
   evt.preventDefault();
   galleryOverlay.classList.remove(CLASS_HIDDEN);
-  showPhoto(pictureElement);
+  showPhoto(indexPicture);
 };
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
@@ -101,7 +101,7 @@ document.addEventListener('keydown', function (evt) {
 
 var clickPictureHandler = function (i) {
   pictureElements[i].addEventListener('click', function (evt) {
-    onClickOpenGallery(pictureElements[i], evt);
+    onClickOpenGallery(i, evt);
   });
 };
 
