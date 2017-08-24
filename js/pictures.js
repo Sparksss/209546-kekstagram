@@ -89,14 +89,14 @@ var onClickOpenGallery = function (indexPicture, evt) {
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
-var onGalleryEnterPress = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    galleryOverlay.classList.add(CLASS_HIDDEN);
-  }
+var onGalleryEnterPress = function () {
+  galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
 document.addEventListener('keydown', function (evt) {
-  onGalleryEnterPress(evt);
+  if (evt.keyCode === ENTER_KEYCODE) {
+    onGalleryEnterPress(evt);
+  }
 });
 
 var clickPictureHandler = function (i) {
@@ -113,14 +113,14 @@ var onclickCloseGallery = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
-var onGalleryEscPress = function (evt) {
-  if (evt.keyCode === ESCAPE_KEYCODE) {
-    galleryOverlay.classList.add(CLASS_HIDDEN);
-  }
+var onGalleryEscPress = function () {
+  galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
 document.addEventListener('keydown', function (evt) {
-  onGalleryEscPress(evt);
+  if (evt.keyCode === ESCAPE_KEYCODE) {
+    onGalleryEscPress(evt);
+  }
 });
 closeGallery.addEventListener('click', function () {
   onclickCloseGallery();
