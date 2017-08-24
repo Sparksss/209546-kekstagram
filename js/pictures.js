@@ -95,7 +95,7 @@ var onGalleryEnterPress = function () {
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    onGalleryEnterPress(evt);
+    onGalleryEnterPress();
   }
 });
 
@@ -119,7 +119,7 @@ var onGalleryEscPress = function () {
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESCAPE_KEYCODE) {
-    onGalleryEscPress(evt);
+    onGalleryEscPress();
   }
 });
 closeGallery.addEventListener('click', function () {
