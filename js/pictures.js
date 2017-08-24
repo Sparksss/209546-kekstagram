@@ -11,7 +11,9 @@ var COMMENTS = [
 
 var CLASS_HIDDEN = 'hidden';
 
-var KEYWORD_ESC = 27;
+var ESCAPE_KEYCODE = 27;
+
+var ENTER_KEYCODE = 13;
 
 var similarPictureElement = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture-template').content;
@@ -79,7 +81,7 @@ similarPictureElement.appendChild(getRenderPhotos());
 
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
-var openGalleryOverlay = function (pictureElement, evt) {
+var onClickOpenGallery = function (pictureElement, evt) {
   evt.preventDefault();
   galleryOverlay.classList.remove(CLASS_HIDDEN);
   showPhoto(pictureElement);
@@ -87,9 +89,19 @@ var openGalleryOverlay = function (pictureElement, evt) {
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
+var onGalleryEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    galleryOverlay.classList.add(CLASS_HIDDEN);
+  }
+};
+
+document.addEventListener('keydown', function (evt) {
+  onGalleryEnterPress(evt);
+});
+
 var clickPictureHandler = function (i) {
   pictureElements[i].addEventListener('click', function (evt) {
-    openGalleryOverlay(pictureElements[i], evt);
+    onClickOpenGallery(pictureElements[i], evt);
   });
 };
 
@@ -97,20 +109,20 @@ for (var i = 0; i < pictureElements.length; i++) {
   clickPictureHandler(i);
 }
 
-var clickSpanHandler = function () {
+var onclickCloseGallery = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
 
-var keydownSpanHandler = function (evt) {
-  if (evt.keyCode === KEYWORD_ESC) {
+var onGalleryEscPress = function (evt) {
+  if (evt.keyCode === ESCAPE_KEYCODE) {
     galleryOverlay.classList.add(CLASS_HIDDEN);
   }
 };
 
 document.addEventListener('keydown', function (evt) {
-  keydownSpanHandler(evt);
+  onGalleryEscPress(evt);
 });
 closeGallery.addEventListener('click', function () {
-  clickSpanHandler();
+  onclickCloseGallery();
 });
 
