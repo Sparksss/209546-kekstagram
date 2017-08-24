@@ -11,6 +11,8 @@ var COMMENTS = [
 
 var CLASS_HIDDEN = 'hidden';
 
+var KEYWORD_ESC = 27;
+
 var similarPictureElement = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture-template').content;
 
@@ -83,16 +85,6 @@ var openGalleryOverlay = function (pictureElement, evt) {
   showPhoto(pictureElement);
 };
 
-var clickSpanHandler = function () {
-  galleryOverlay.classList.add(CLASS_HIDDEN);
-};
-
-var keydownSpanHandler = function (evt) {
-  if (evt.keyCode === 27) {
-    galleryOverlay.classList.add(CLASS_HIDDEN);
-  }
-};
-
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
 var clickPictureHandler = function (i) {
@@ -105,5 +97,20 @@ for (var i = 0; i < pictureElements.length; i++) {
   clickPictureHandler(i);
 }
 
-closeGallery.addEventListener('click', clickSpanHandler);
-closeGallery.addEventListener('keydown', keydownSpanHandler);
+var clickSpanHandler = function () {
+  galleryOverlay.classList.add(CLASS_HIDDEN);
+};
+
+var keydownSpanHandler = function (evt) {
+  if (evt.keyCode === KEYWORD_ESC) {
+    galleryOverlay.classList.add(CLASS_HIDDEN);
+  }
+};
+
+document.addEventListener('keydown', function (evt) {
+  keydownSpanHandler(evt);
+});
+closeGallery.addEventListener('click', function () {
+  clickSpanHandler();
+});
+
