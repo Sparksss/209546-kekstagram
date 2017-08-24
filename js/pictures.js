@@ -97,10 +97,8 @@ var closePopup = function () {
 };
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.target.className === checkCloseGallery) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
-    }
+  if (evt.target.className === checkCloseGallery && evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
   }
 });
 
