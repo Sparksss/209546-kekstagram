@@ -68,10 +68,10 @@ var getRenderPictures = function (photo) {
   return photoElement;
 };
 
-var showPhoto = function () {
-  galleryOverlay.querySelector('.gallery-overlay-image').src = clickedElement.querySelector('img').src;
-  galleryOverlay.querySelector('.likes-count').textContent = clickedElement.querySelector('.picture-likes').textContent;
-  galleryOverlay.querySelector('.comments-count').textContent = clickedElement.querySelector('.picture-comments').textContent;
+var showPhoto = function (galleryElement) {
+  galleryOverlay.querySelector('.gallery-overlay-image').src = galleryElement.querySelector('img').src;
+  galleryOverlay.querySelector('.likes-count').textContent = galleryElement.querySelector('.picture-likes').textContent;
+  galleryOverlay.querySelector('.comments-count').textContent = galleryElement.querySelector('.picture-comments').textContent;
 };
 
 croppingForm.classList.add(CLASS_HIDDEN);
@@ -79,21 +79,33 @@ similarPictureElement.appendChild(getRenderPhotos());
 
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
-var openGalleryOverlay = function (evt) {
+var openGalleryOverlay = function (pictureElement, evt) {
   evt.preventDefault();
-  clickedElement = evt.currentTarget;
   galleryOverlay.classList.remove(CLASS_HIDDEN);
-  showPhoto();
+  showPhoto(pictureElement);
 };
 
-var closeGalleryOverlay = function () {
+var clickSpanHandler = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
+};
+
+var keydownSpanHandler = function (evt) {
+  if (evt.keyCode === 27) {
+    galleryOverlay.classList.add(CLASS_HIDDEN);
+  }
 };
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
 
+var clickPictureHandler = function (i) {
+  pictureElements[i].addEventListener('click', function (evt) {
+    openGalleryOverlay(pictureElements[i], evt);
+  });
+};
+
 for (var i = 0; i < pictureElements.length; i++) {
-  pictureElements[i].addEventListener('click', openGalleryOverlay);
+  clickPictureHandler(i);
 }
 
-closeGallery.addEventListener('click', closeGalleryOverlay);
+closeGallery.addEventListener('click', clickSpanHandler);
+closeGallery.addEventListener('keydown', keydownSpanHandler);
