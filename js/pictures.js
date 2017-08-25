@@ -123,3 +123,30 @@ document.addEventListener('keydown', function (evt) {
 closeGallery.addEventListener('click', function () {
   closePopup();
 });
+
+var uploadImage = document.querySelector('#upload-select-image');
+
+var uploadFile = uploadImage.querySelector('#upload-file');
+
+var uploadOverlay = uploadImage.querySelector('.upload-overlay');
+
+var downloadForm = uploadImage.querySelector('.upload-image');
+
+var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
+
+var cancelFramingForm = function () {
+  downloadForm.classList.remove(CLASS_HIDDEN);
+  uploadOverlay.classList.add(CLASS_HIDDEN);
+};
+var onInputOpenFramingForm = function () {
+  uploadOverlay.classList.remove(CLASS_HIDDEN);
+  downloadForm.classList.add(CLASS_HIDDEN);
+};
+
+uploadFile.addEventListener('input', function () {
+  onInputOpenFramingForm();
+});
+
+cancelFraming.addEventListener('click', function () {
+  cancelFramingForm();
+});
