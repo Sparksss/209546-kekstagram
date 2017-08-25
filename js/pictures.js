@@ -134,10 +134,12 @@ var downloadForm = uploadImage.querySelector('.upload-image');
 
 var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
-var cancelFramingForm = function () {
+var closeFramingHandler = function () {
   downloadForm.classList.remove(CLASS_HIDDEN);
   uploadOverlay.classList.add(CLASS_HIDDEN);
 };
+
+
 var onInputOpenFramingForm = function () {
   uploadOverlay.classList.remove(CLASS_HIDDEN);
   downloadForm.classList.add(CLASS_HIDDEN);
@@ -148,5 +150,17 @@ uploadFile.addEventListener('input', function () {
 });
 
 cancelFraming.addEventListener('click', function () {
-  cancelFramingForm();
+  closeFramingHandler();
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESCAPE_KEYCODE) {
+    closeFramingHandler();
+  }
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.target.classList.contains(cancelFraming) && evt.keyCode === ENTER_KEYCODE) {
+    closeFramingHandler();
+  }
 });
