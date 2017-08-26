@@ -187,9 +187,8 @@ var checkForTheSameWord = function (word, hashTags, checkTag) {
 
 var checkHashTags = function (hashTag) {
   var maxLengthTag = 21;
-  var hash = '#';
   var maxHashTags = 5;
-  var listHashTag = hashTag.value.split(hash);
+  var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
   for (var l = 1; l < listHashTag.length; l++) {
     if (listHashTag[l].length > maxLengthTag) {
       hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
