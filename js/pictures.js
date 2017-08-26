@@ -126,7 +126,7 @@ closeGallery.addEventListener('click', function () {
 
 var uploadImage = document.querySelector('#upload-select-image');
 
-var uploadFile = uploadImage.querySelector('#upload-file');
+var uploadFile = uploadImage.querySelector('.upload-image');
 
 var uploadOverlay = uploadImage.querySelector('.upload-overlay');
 
@@ -181,7 +181,7 @@ var getImageEffect = function (effect) {
   sizeImage.classList.add('effect-' + effect.value);
 };
 
-uploadFile.addEventListener('input', function () {
+uploadFile.addEventListener('change', function () {
   onInputOpenFramingForm();
 });
 
