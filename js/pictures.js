@@ -189,7 +189,8 @@ var checkHashTags = function (hashTag) {
   var maxLengthTag = 21;
   var maxHashTags = 5;
   var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
-  if (listHashTag.length > 1) {
+  var lenghtListHashTags = listHashTag.length;
+  if (lenghtListHashTags > 1) {
     for (var l = 1; l < listHashTag.length; l++) {
       if (listHashTag[l].length > maxLengthTag) {
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
