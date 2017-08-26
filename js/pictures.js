@@ -180,12 +180,10 @@ var getIncreaseSizeImage = function () {
 };
 
 var checkForTheSameWord = function (word, hashTags, checkTag) {
-  for (var j = 1; j < hashTags.length; j++) {
-    if (word === hashTags[j]) {
-      checkTag.setCustomValidity('Теги не должны повторяться!');
-    } else {
-      checkTag.setCustomValidity('');
-    }
+  if (word === hashTags) {
+    checkTag.setCustomValidity('Теги не должны повторяться!');
+  } else {
+    checkTag.setCustomValidity('');
   }
 };
 
@@ -210,7 +208,7 @@ var checkHashTags = function (hashTag) {
     } else {
       hashTag.setCustomValidity('');
     }
-    checkForTheSameWord(listHashTag[l], listHashTag, hashTag);
+    checkForTheSameWord(listHashTag[l], listHashTag[l + 1], hashTag);
   }
 };
 
