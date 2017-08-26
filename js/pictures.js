@@ -193,7 +193,7 @@ var checkHashTags = function (hashTag) {
 };
 
 var getImageEffect = function (effect) {
-  sizeImage.setAttribute('class', 'effect-' + effect.value);
+  sizeImage.setAttribute('class', 'effect-image-preview ' + 'effect-' + effect.value);
 };
 
 uploadFile.addEventListener('change', function () {
