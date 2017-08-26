@@ -194,13 +194,6 @@ var checkHashTags = function (hashTag) {
   var hash = '#';
   var maxHashTags = 5;
   var listHashTag = hashTag.value.split(hash);
-  for (var k = 0; k < hashTag.value.length; k++){
-    if (hashTag.value[k] === ' ') {
-      hashTag.setCustomValidity('Хеш-тег не должен содержать пробелов');
-    } else {
-      hashTag.setCustomValidity('');
-    }
-  }
   if (listHashTag.length <= maxHashTags) {
     hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
   } else {
