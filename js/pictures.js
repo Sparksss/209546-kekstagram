@@ -193,7 +193,7 @@ var checkHashTags = function (hashTag) {
 };
 
 var getImageEffect = function (effect) {
-  sizeImage.classList.add('effect-' + effect.value);
+  sizeImage.setAttribute('class', 'effect-' + effect.value);
 };
 
 uploadFile.addEventListener('change', function () {
@@ -231,7 +231,8 @@ parentEffectElement.addEventListener('click', function (evt) {
   }
 });
 
-hasgTags.addEventListener('invalid', function (evt) {
+hasgTags.addEventListener('input', function (evt) {
+  debugger;
   var target = evt.target;
   if (target.value.length > 0) {
     checkHashTags(target);
