@@ -209,6 +209,9 @@ increaseImageSize.addEventListener('click', function () {
   getIncreaseSizeImage();
 });
 
-parentEffectElement.addEventListener('click', function () {
-  getImageEffect();
+parentEffectElement.addEventListener('click', function (evt) {
+  var target = evt.target;
+  if (target.tagName.toLowerCase() === 'input') {
+    getImageEffect(target);
+  }
 });
