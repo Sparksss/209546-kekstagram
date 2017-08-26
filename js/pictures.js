@@ -134,6 +134,20 @@ var downloadForm = uploadImage.querySelector('.upload-image');
 
 var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
+var reduceImageSize = uploadOverlay.querySelector('.upload-resize-controls-button-dec');
+
+var increaseImageSize = uploadOverlay.querySelector('.upload-resize-controls-button-inc ');
+
+var controlSizeImage = uploadOverlay.querySelector('.upload-resize-controls-value');
+
+var sizeImage = uploadOverlay.querySelector('.effect-image-preview');
+
+var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
+
+var MIN_VALUE = 30;
+
+var MAX_VALUE = 100;
+
 var closeFramingHandler = function () {
   downloadForm.classList.remove(CLASS_HIDDEN);
   uploadOverlay.classList.add(CLASS_HIDDEN);
@@ -143,6 +157,28 @@ var closeFramingHandler = function () {
 var onInputOpenFramingForm = function () {
   uploadOverlay.classList.remove(CLASS_HIDDEN);
   downloadForm.classList.add(CLASS_HIDDEN);
+};
+
+var getReduceSizeImage = function () {
+  var sizeValue = parseInt(controlSizeImage.value, 10);
+  if (sizeValue > MIN_VALUE) {
+    controlSizeImage.value = sizeValue - 25 + '%';
+    sizeValue = (sizeValue - 25) / 100;
+    sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+  }
+};
+
+var getIncreaseSizeImage = function () {
+  var sizeValue = parseInt(controlSizeImage.value, 10);
+  if (sizeValue < MAX_VALUE) {
+    controlSizeImage.value = sizeValue + 25 + '%';
+    sizeValue = (sizeValue + 25) / 100;
+    sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+  }
+};
+
+var getImageEffect = function (effect) {
+  sizeImage.classList.add('effect-' + effect.value);
 };
 
 uploadFile.addEventListener('input', function () {
@@ -163,4 +199,16 @@ document.addEventListener('keydown', function (evt) {
   if (evt.target.classList.contains(cancelFraming) && evt.keyCode === ENTER_KEYCODE) {
     closeFramingHandler();
   }
+});
+
+reduceImageSize.addEventListener('click', function () {
+  getReduceSizeImage();
+});
+
+increaseImageSize.addEventListener('click', function () {
+  getIncreaseSizeImage();
+});
+
+parentEffectElement.addEventListener('click', function () {
+  getImageEffect();
 });
