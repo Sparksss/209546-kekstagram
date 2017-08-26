@@ -193,19 +193,20 @@ var checkHashTags = function (hashTag) {
   var maxLengthTag = 21;
   var hash = '#';
   var maxHashTags = 5;
-  if (hashTag.indexOf(' ') === ' ') {
-    hashTag.setCustomValidity('Хеш-тег не должен содержать пробелов');
-  }
-  else {
-    hashTag.setCustomValidity('');
-  }
   var listHashTag = hashTag.value.split(hash);
-  for (var l = 0; l < listHashTag.length; l++) {
-    if (listHashTag.length <= maxHashTags) {
-      hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
+  for (var k = 0; k < hashTag.value.length; k++){
+    if (hashTag.value[k] === ' ') {
+      hashTag.setCustomValidity('Хеш-тег не должен содержать пробелов');
     } else {
       hashTag.setCustomValidity('');
     }
+  }
+  if (listHashTag.length <= maxHashTags) {
+    hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
+  } else {
+    hashTag.setCustomValidity('');
+  }
+  for (var l = 0; l < listHashTag.length; l++) {
     if (listHashTag[l].length > maxLengthTag) {
       hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
     } else {
