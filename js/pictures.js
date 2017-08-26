@@ -182,8 +182,6 @@ var getIncreaseSizeImage = function () {
 var checkForTheSameWord = function (word, hashTags, checkTag) {
   if (word === hashTags) {
     checkTag.setCustomValidity('Теги не должны повторяться!');
-  } else {
-    checkTag.setCustomValidity('');
   }
 };
 
@@ -192,24 +190,17 @@ var checkHashTags = function (hashTag) {
   var hash = '#';
   var maxHashTags = 5;
   var listHashTag = hashTag.value.split(hash);
-  if (listHashTag.length >= maxHashTags) {
-    hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
-  } else {
-    hashTag.setCustomValidity('');
-  }
   for (var l = 0; l < listHashTag.length; l++) {
     if (listHashTag[l].length > maxLengthTag) {
       hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
-    } else {
-      hashTag.setCustomValidity('');
-    }
-    if (listHashTag[l][0] !== hash) {
+    } else if (listHashTag[l][0] !== hash){
       hashTag.setCustomValidity('Хеш-тег должен начинаться со знака #');
-    } else {
-      hashTag.setCustomValidity('');
+    } else if (listHashTag.length >= maxHashTags) {
+      hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
     }
     checkForTheSameWord(listHashTag[l], listHashTag[l + 1], hashTag);
   }
+  hashTag.setCustomValidity('');
 };
 
 var getImageEffect = function (effect) {
