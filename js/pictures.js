@@ -144,6 +144,8 @@ var sizeImage = uploadOverlay.querySelector('.effect-image-preview');
 
 var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
 
+var hasgTags = uploadOverlay.querySelector('.upload-form-hashtags');
+
 var MIN_VALUE = 30;
 
 var MAX_VALUE = 100;
@@ -174,6 +176,16 @@ var getIncreaseSizeImage = function () {
     controlSizeImage.value = sizeValue + 25 + '%';
     sizeValue = (sizeValue + 25) / 100;
     sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+  }
+};
+
+var checkHashTags = function (hashTag) {
+  var maxLengthHashTags = 21;
+  if (hashTag.value[0] !== '#') {
+    hashTag.setCustomValidity('Хештег должен начинаться с символа # !');
+  }
+  if (hashTag.value.length > maxLengthHashTags) {
+    hashTag.setCustomValidity('длинна всех хеш тегов не должна быть больше 20 символов!');
   }
 };
 
@@ -214,4 +226,9 @@ parentEffectElement.addEventListener('click', function (evt) {
   if (target.tagName.toLowerCase() === 'input') {
     getImageEffect(target);
   }
+});
+
+hasgTags.addEventListener('input', function (evt) {
+  var target = evt.target;
+  checkHashTags(target);
 });
