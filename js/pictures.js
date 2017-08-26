@@ -181,8 +181,11 @@ var getIncreaseSizeImage = function () {
 
 var checkHashTags = function (hashTag) {
   var maxLengthHashTags = 21;
-  if (hashTag.value[0] !== '#') {
-    hashTag.setCustomValidity('Хештег должен начинаться с символа # !');
+  var listHashTag = hashTag.value.split(' #');
+  for (var j = 0; j < listHashTag.length; j++) {
+    if (listHashTag[j] === listHashTag[j + 1]) {
+      hashTag.setCustomValidity('Хештеги не должны повторятся!');
+    }
   }
   if (hashTag.value.length > maxLengthHashTags) {
     hashTag.setCustomValidity('длинна всех хеш тегов не должна быть больше 20 символов!');
@@ -228,7 +231,9 @@ parentEffectElement.addEventListener('click', function (evt) {
   }
 });
 
-hasgTags.addEventListener('input', function (evt) {
+hasgTags.addEventListener('invalid', function (evt) {
   var target = evt.target;
-  checkHashTags(target);
+  if (target.value.length > 0) {
+    checkHashTags(target);
+  }
 });
