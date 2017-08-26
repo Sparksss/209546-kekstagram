@@ -192,7 +192,7 @@ var checkHashTags = function (hashTag) {
   var hash = '#';
   var maxHashTags = 5;
   var listHashTag = hashTag.value.split(hash);
-  if (listHashTag.length <= maxHashTags) {
+  if (listHashTag.length >= maxHashTags) {
     hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
   } else {
     hashTag.setCustomValidity('');
