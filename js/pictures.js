@@ -178,8 +178,8 @@ var getSizeImage = function (options) {
   }
 };
 
-var checkForTheSameWord = function (word, hashTags, checkTag) {
-  if (word === hashTags) {
+var checkForTheSameWord = function (firstWord, secondWord, checkTag) {
+  if (firstWord === secondWord) {
     checkTag.setCustomValidity('Теги не должны повторяться!');
   }
 };
@@ -188,9 +188,11 @@ var checkHashTags = function (hashTag) {
   var maxLengthTag = 21;
   var maxHashTags = 5;
   var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
-  var lengthListHashTags = listHashTag.length;
-  if (lengthListHashTags > 1) {
-    for (var l = 1; l < listHashTag.length; l++) {
+  if (listHashTag === null) {
+    hashTag.setCustomValidity('Первый символ должен быть решеткой');
+  } else {
+    var lengthListHashTags = listHashTag.length;
+    for (var l = 1; l < lengthListHashTags; l++) {
       if (listHashTag[l].length > maxLengthTag) {
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
       } else if (listHashTag.length >= maxHashTags) {
