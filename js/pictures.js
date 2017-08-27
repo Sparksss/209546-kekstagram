@@ -144,7 +144,7 @@ var sizeImage = uploadOverlay.querySelector('.effect-image-preview');
 
 var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
 
-var hasgTags = uploadOverlay.querySelector('.upload-form-hashtags');
+var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
 var MIN_VALUE = 30;
 
@@ -161,21 +161,20 @@ var onInputOpenFramingForm = function () {
   downloadForm.classList.add(CLASS_HIDDEN);
 };
 
-var getReduceSizeImage = function () {
+var getReduceSizeImage = function (options) {
   var sizeValue = parseInt(controlSizeImage.value, 10);
-  if (sizeValue > MIN_VALUE) {
-    controlSizeImage.value = sizeValue - 25 + '%';
-    sizeValue = (sizeValue - 25) / 100;
-    sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
-  }
-};
-
-var getIncreaseSizeImage = function () {
-  var sizeValue = parseInt(controlSizeImage.value, 10);
-  if (sizeValue < MAX_VALUE) {
-    controlSizeImage.value = sizeValue + 25 + '%';
-    sizeValue = (sizeValue + 25) / 100;
-    sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+  if (options.classList.contains('upload-resize-controls-button-dec')) {
+    if (sizeValue > MIN_VALUE) {
+      controlSizeImage.value = sizeValue - 25 + '%';
+      sizeValue = (sizeValue - 25) / 100;
+      sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+    }
+  } else if (options.classList.contains('upload-resize-controls-button-inc')) {
+    if (sizeValue < MAX_VALUE) {
+      controlSizeImage.value = sizeValue + 25 + '%';
+      sizeValue = (sizeValue + 25) / 100;
+      sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
+    }
   }
 };
 
@@ -227,12 +226,12 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
-reduceImageSize.addEventListener('click', function () {
-  getReduceSizeImage();
+reduceImageSize.addEventListener('click', function (evt) {
+  getReduceSizeImage(evt.target);
 });
 
-increaseImageSize.addEventListener('click', function () {
-  getIncreaseSizeImage();
+increaseImageSize.addEventListener('click', function (evt) {
+  getReduceSizeImage(evt.target);
 });
 
 parentEffectElement.addEventListener('click', function (evt) {
@@ -242,7 +241,7 @@ parentEffectElement.addEventListener('click', function (evt) {
   }
 });
 
-hasgTags.addEventListener('input', function (evt) {
+hashTags.addEventListener('input', function (evt) {
   var target = evt.target;
   if (target.value.length > 0) {
     checkHashTags(target);
