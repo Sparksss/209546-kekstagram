@@ -161,7 +161,7 @@ var onInputOpenFramingForm = function () {
   downloadForm.classList.add(CLASS_HIDDEN);
 };
 
-var getReduceSizeImage = function (options) {
+var getSizeImage = function (options) {
   var sizeValue = parseInt(controlSizeImage.value, 10);
   if (options.classList.contains('upload-resize-controls-button-dec')) {
     if (sizeValue > MIN_VALUE) {
@@ -227,11 +227,11 @@ document.addEventListener('keydown', function (evt) {
 });
 
 reduceImageSize.addEventListener('click', function (evt) {
-  getReduceSizeImage(evt.target);
+  getSizeImage(evt.target);
 });
 
 increaseImageSize.addEventListener('click', function (evt) {
-  getReduceSizeImage(evt.target);
+  getSizeImage(evt.target);
 });
 
 parentEffectElement.addEventListener('click', function (evt) {
