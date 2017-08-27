@@ -175,6 +175,8 @@ var checkForTheSameWord = function (listTags, checkingTag, tagElement) {
     if (checkingTag === listTags[j]) {
       tagElement.setCustomValidity('Теги не должны повторяться!');
       break;
+    } else {
+      tagElement.setCustomValidity('');
     }
   }
 };
@@ -185,15 +187,23 @@ var checkHashTagsHandler = function (hashTag) {
   var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
   if (listHashTag === null) {
     hashTag.setCustomValidity('Первый символ должен быть решеткой');
-  } else if (listHashTag.length > maxHashTags) {
+  } else {
+    hashTag.setCustomValidity('');
+  }
+  if (listHashTag.length > maxHashTags) {
     hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
   } else {
-    var lengthListHashTags = listHashTag.length;
-    for (var l = 0; l < lengthListHashTags; l++) {
-      if (listHashTag[l].length > maxLengthTag) {
-        hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
-        break;
-      }
+    hashTag.setCustomValidity('');
+  }
+  var lengthListHashTags = listHashTag.length;
+  for (var l = 0; l < lengthListHashTags; l++) {
+    if (listHashTag[l].length > maxLengthTag) {
+      hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
+      break;
+    } else {
+      hashTag.setCustomValidity('');
+    }
+    if (lengthListHashTags > 1) {
       checkForTheSameWord(listHashTag, listHashTag[l], hashTag);
     }
   }
