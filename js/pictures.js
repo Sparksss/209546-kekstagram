@@ -193,9 +193,9 @@ var checkHashTags = function (hashTag) {
   } else {
     var lengthListHashTags = listHashTag.length;
     for (var l = 1; l < lengthListHashTags; l++) {
-      if (listHashTag[l].length > maxLengthTag) {
+      if (listHashTag[l].length < maxLengthTag) {
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
-      } else if (listHashTag.length >= maxHashTags) {
+      } else if (listHashTag.length <= maxHashTags) {
         hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
       }
       checkForTheSameWord(listHashTag[l], listHashTag[l + 1], hashTag);
