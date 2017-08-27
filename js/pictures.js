@@ -223,7 +223,7 @@ document.addEventListener('keydown', function (evt) {
 });
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.target.classList.contains(cancelFraming) && evt.keyCode === ENTER_KEYCODE) {
+  if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === ENTER_KEYCODE) {
     closeFramingHandler();
   }
 });
