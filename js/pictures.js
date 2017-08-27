@@ -161,7 +161,7 @@ var onInputOpenFramingForm = function () {
   downloadForm.classList.add(CLASS_HIDDEN);
 };
 
-var getSizeImage = function (options) {
+var changeImageSizeHandler = function (options) {
   var sizeValue = parseInt(controlSizeImage.value, 10);
   if (options.classList.contains('upload-resize-controls-button-dec')) {
     if (sizeValue > MIN_VALUE) {
@@ -184,7 +184,7 @@ var checkForTheSameWord = function (firstWord, secondWord, checkTag) {
   }
 };
 
-var checkHashTags = function (hashTag) {
+var checkHashTagsHandler = function (hashTag) {
   var maxLengthTag = 21;
   var maxHashTags = 5;
   var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
@@ -204,7 +204,7 @@ var checkHashTags = function (hashTag) {
   }
 };
 
-var getImageEffect = function (effect) {
+var changeImageEffectHandler = function (effect) {
   sizeImage.setAttribute('class', 'effect-image-preview ' + 'effect-' + effect.value);
 };
 
@@ -229,23 +229,23 @@ document.addEventListener('keydown', function (evt) {
 });
 
 reduceImageSize.addEventListener('click', function (evt) {
-  getSizeImage(evt.target);
+  changeImageSizeHandler(evt.target);
 });
 
 increaseImageSize.addEventListener('click', function (evt) {
-  getSizeImage(evt.target);
+  changeImageSizeHandler(evt.target);
 });
 
 parentEffectElement.addEventListener('click', function (evt) {
   var target = evt.target;
   if (target.tagName.toLowerCase() === 'input') {
-    getImageEffect(target);
+    changeImageEffectHandler(target);
   }
 });
 
 hashTags.addEventListener('input', function (evt) {
   var target = evt.target;
   if (target.value.length > 0) {
-    checkHashTags(target);
+    checkHashTagsHandler(target);
   }
 });
