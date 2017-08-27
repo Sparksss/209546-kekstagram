@@ -146,7 +146,7 @@ var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls')
 
 var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
-var MIN_VALUE = 30;
+var MIN_VALUE = 25;
 
 var MAX_VALUE = 100;
 
@@ -161,22 +161,13 @@ var onInputOpenFramingForm = function () {
   downloadForm.classList.add(CLASS_HIDDEN);
 };
 
-var changeImageSizeHandler = function (options) {
-  var sizeValue = parseInt(controlSizeImage.value, 10);
-  if (options.classList.contains('upload-resize-controls-button-dec')) {
-    if (sizeValue > MIN_VALUE) {
-      controlSizeImage.value = sizeValue - 25 + '%';
-      sizeValue = (sizeValue - 25) / 100;
-      sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
-    }
-  } else if (options.classList.contains('upload-resize-controls-button-inc')) {
-    if (sizeValue < MAX_VALUE) {
-      controlSizeImage.value = sizeValue + 25 + '%';
-      sizeValue = (sizeValue + 25) / 100;
-      sizeImage.style.transform = 'scale(' + sizeValue + ' , ' + sizeValue + ')';
-    }
+var changeImageSize = function (direction) {
+  var newValue = parseInt(controlSizeImage.value, 10) + 25 * direction;
+  if (newValue >= MIN_VALUE && newValue <= MAX_VALUE) {
+    controlSizeImage.value = newValue + '%';
+    sizeImage.style.transform = 'scale(' + newValue / 100 + ')';
   }
-};
+ };
 
 var checkForTheSameWord = function (firstWord, secondWord, checkTag) {
   if (firstWord === secondWord) {
@@ -195,8 +186,10 @@ var checkHashTagsHandler = function (hashTag) {
     for (var l = 1; l < lengthListHashTags; l++) {
       if (listHashTag[l].length < maxLengthTag) {
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
+        break;
       } else if (listHashTag.length <= maxHashTags) {
         hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
+        break;
       }
       checkForTheSameWord(listHashTag[l], listHashTag[l + 1], hashTag);
     }
@@ -228,12 +221,12 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
-reduceImageSize.addEventListener('click', function (evt) {
-  changeImageSizeHandler(evt.target);
+reduceImageSize.addEventListener('click', function () {
+  changeImageSize(-1);
 });
 
-increaseImageSize.addEventListener('click', function (evt) {
-  changeImageSizeHandler(evt.target);
+increaseImageSize.addEventListener('click', function () {
+  changeImageSize(1);
 });
 
 parentEffectElement.addEventListener('click', function (evt) {
