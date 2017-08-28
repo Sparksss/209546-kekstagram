@@ -204,8 +204,13 @@ var checkHashTagsHandler = function (hashTag) {
   }
 };
 
+var currentEffect = 'effect-';
+
 var changeImageEffectHandler = function (effect) {
-  sizeImage.setAttribute('class', 'effect-image-preview ' + 'effect-' + effect.value);
+  currentEffect = sizeImage.className;
+  sizeImage.classList.remove(currentEffect);
+  sizeImage.classList.add('effect-' + effect.value);
+  currentEffect += effect.value;
 };
 
 uploadFile.addEventListener('change', function () {
