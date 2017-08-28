@@ -172,10 +172,10 @@ var changeImageSize = function (direction) {
 var checkForTheSameWord = function (listTags, checkingTag, tagElement, index) {
   var lengthListTags = listTags.length;
   for (var j = 1; j < lengthListTags; j++) {
-    if (j === index) {
-      continue;
-    }
     if (listTags[j] === checkingTag) {
+      if (j === index) {
+        continue;
+      }
       tagElement.setCustomValidity('Теги не должны повторяться!');
       break;
     }
@@ -190,10 +190,11 @@ var checkHashTagsHandler = function (hashTag) {
   if (listHashTag === null) {
     hashTag.setCustomValidity('Первый символ должен быть решеткой');
   } else {
-    if (listHashTag.length > maxHashTags) {
+    var lengthListHashTags = listHashTag.length;
+    if (lengthListHashTags > maxHashTags) {
       hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
     }
-    var lengthListHashTags = listHashTag.length;
+
     for (var l = 0; l < lengthListHashTags; l++) {
       if (listHashTag[l].length > maxLengthTag) {
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
