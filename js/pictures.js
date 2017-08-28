@@ -146,8 +146,6 @@ var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls')
 
 var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
-var validForm = uploadOverlay.querySelector('.upload-form-description');
-
 var MIN_VALUE = 25;
 
 var MAX_VALUE = 100;
@@ -171,36 +169,43 @@ var changeImageSize = function (direction) {
   }
 };
 
-var checkForTheSameWord = function (listTags, checkingTag, tagElement, index) {
+var checkForTheSameWord = function (listTags, index) {
   var lengthListTags = listTags.length;
   for (var j = 1; j < lengthListTags; j++) {
-    if (listTags[j] === checkingTag && j !== index) {
-      tagElement.setCustomValidity('Теги не должны повторяться!');
+    if (listTags[j] === listTags[index] && j !== index) {
+      hashTags.setCustomValidity('Теги не должны повторяться!');
       break;
     }
   }
 };
 
-var checkHashTagsHandler = function (hashTag) {
+var checkHashTagsHandler = function () {
   var maxHashTags = 5;
   var maxLengthTag = 21;
-  var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
-  hashTag.setCustomValidity('');
+  var tagsFieldValue = hashTags.value;
+  var listHashTag = tagsFieldValue.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
+
+  hashTags.setCustomValidity('');
+
+  if (tagsFieldValue.length === 0) {
+    return;
+  }
+
   if (listHashTag === null) {
-    hashTag.setCustomValidity('Первый символ должен быть решеткой');
+    hashTags.setCustomValidity('Первый символ должен быть решеткой');
   } else {
     var lengthListHashTags = listHashTag.length;
     if (lengthListHashTags > maxHashTags) {
-      hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
+      hashTags.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
     }
 
     for (var l = 0; l < lengthListHashTags; l++) {
       if (listHashTag[l].length > maxLengthTag) {
-        hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
+        hashTags.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
         break;
       }
       if (lengthListHashTags > 1) {
-        checkForTheSameWord(listHashTag, listHashTag[l], hashTag, l);
+        checkForTheSameWord(listHashTag, l);
       }
     }
   }
@@ -249,9 +254,6 @@ parentEffectElement.addEventListener('click', function (evt) {
   }
 });
 
-hashTags.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value.length > 0) {
-    checkHashTagsHandler(target);
-  }
+hashTags.addEventListener('input', function () {
+  checkHashTagsHandler();
 });
