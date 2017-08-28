@@ -172,7 +172,7 @@ var changeImageSize = function (direction) {
 var checkForTheSameWord = function (listTags, checkingTag, tagElement, index) {
   var lengthListTags = listTags.length;
   for (var j = 1; j < lengthListTags; j++) {
-    if (listTags[j] === checkingTag && j === index) {
+    if (listTags[j] === checkingTag && j !== index) {
       tagElement.setCustomValidity('Теги не должны повторяться!');
       break;
     }
