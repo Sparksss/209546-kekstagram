@@ -1,5 +1,8 @@
 'use strict';
 
+
+// создаем данные
+
 var COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -26,7 +29,7 @@ var galleryOverlay = document.querySelector('.gallery-overlay');
 var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
-
+// заполняем сгенерированными данными массив с комментариями
 var getRandomNumberComments = function () {
   var temporaryComments = [];
   var commentsNumber = getRandomNumber(0, 50);
@@ -35,6 +38,9 @@ var getRandomNumberComments = function () {
   }
   return temporaryComments;
 };
+
+// создаём объекты и заполняем их данными
+
 var getUserPhotos = function (number) {
   return {
     url: 'photos/' + number + '.jpg',
@@ -42,6 +48,8 @@ var getUserPhotos = function (number) {
     comments: getRandomNumberComments()
   };
 };
+
+// заполняем массив объектами
 
 var getArrayPictures = function () {
   var photoGallery = [];
@@ -53,6 +61,8 @@ var getArrayPictures = function () {
 
 var photoGallery = getArrayPictures();
 
+// добавляем объекты из массива в фрагмент
+
 var getRenderPhotos = function () {
   var photoLength = photoGallery.length;
   var fragment = document.createDocumentFragment();
@@ -62,6 +72,7 @@ var getRenderPhotos = function () {
   return fragment;
 };
 
+// клонируем шаблон, и заполняем его данными
 
 var getRenderPictures = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
@@ -70,6 +81,8 @@ var getRenderPictures = function (photo) {
   photoElement.querySelector('.picture-likes').textContent = photo.likes;
   return photoElement;
 };
+
+// заполняем данными из объекта html элемент
 
 var showPhoto = function (picture) {
   galleryOverlay.querySelector('.gallery-overlay-image').src = picture.url;
@@ -80,6 +93,8 @@ var showPhoto = function (picture) {
 croppingForm.classList.add(CLASS_HIDDEN);
 similarPictureElement.appendChild(getRenderPhotos());
 
+// получаем html элементы для фотогалереи
+
 var pictureElements = similarPictureElement.querySelectorAll('.picture');
 
 var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
@@ -88,15 +103,21 @@ var checkCloseGallery = 'gallery-overlay-close';
 
 var lengthPictureCollection = pictureElements.length;
 
+// наполняем галерею картинкой и данными, а так же удаляем класс который скрывает галерею
+
 var onClickOpenGallery = function (indexPicture) {
   showPhoto(photoGallery[indexPicture]);
   galleryOverlay.classList.remove(CLASS_HIDDEN);
 
 };
 
+// функция для закрытия галереи
+
 var closePopup = function () {
   galleryOverlay.classList.add(CLASS_HIDDEN);
 };
+
+// обработчик для открытия галереи
 
 var addClickHandler = function (i) {
   pictureElements[i].addEventListener('click', function (evt) {
@@ -105,9 +126,13 @@ var addClickHandler = function (i) {
   });
 };
 
+// применяем обработчик к каждому фото на странице
+
 for (var i = 0; i < lengthPictureCollection; i++) {
   addClickHandler(i);
 }
+
+// обработчик закрытия галереи по клавише Enter
 
 document.addEventListener('keydown', function (evt) {
   if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === ENTER_KEYCODE) {
@@ -115,14 +140,22 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
+// обработчик закрытия галереи по клавише ESC
+
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESCAPE_KEYCODE) {
     closePopup();
   }
 });
+
+// обработчик закрытия галереи по клику
+
 closeGallery.addEventListener('click', function () {
   closePopup();
 });
+
+
+// получам html элементы для работы с формой кадрирования
 
 var uploadImage = document.querySelector('#upload-select-image');
 
@@ -150,16 +183,21 @@ var MIN_VALUE = 25;
 
 var MAX_VALUE = 100;
 
+// функция закрытия формы кадрирования
+
 var closeFramingHandler = function () {
   downloadForm.classList.remove(CLASS_HIDDEN);
   uploadOverlay.classList.add(CLASS_HIDDEN);
 };
 
+// функция открытия формы кадрирования
 
 var onInputOpenFramingForm = function () {
   uploadOverlay.classList.remove(CLASS_HIDDEN);
   downloadForm.classList.add(CLASS_HIDDEN);
 };
+
+// функция изменения масштаба изображения
 
 var changeImageSize = function (direction) {
   var newValue = parseInt(controlSizeImage.value, 10) + 25 * direction;
@@ -168,6 +206,8 @@ var changeImageSize = function (direction) {
     sizeImage.style.transform = 'scale(' + newValue / 100 + ')';
   }
 };
+
+// функция проверки хеш-тегов на идентичность
 
 var checkForTheSameWord = function (listTags, index) {
   var lengthListTags = listTags.length;
@@ -178,6 +218,13 @@ var checkForTheSameWord = function (listTags, index) {
     }
   }
 };
+
+/* функция проверки хеш-тегов
+* проверка поля хеш-тега на пустоту
+*  Проверка 1 символа хеш-тега (обязательно #)
+*  Проверка хеш-тегов на количество, не больше 5
+*  проверка каждого хеш-тега чтобы длинна не превышала 20 символов
+*/
 
 var checkHashTagsHandler = function () {
   var maxHashTags = 5;
@@ -211,7 +258,13 @@ var checkHashTagsHandler = function () {
   }
 };
 
+
+ // переменная для записи классов
+
 var currentEffect = null;
+
+
+// функция для изменения эффета у изображения
 
 var changeImageEffectHandler = function (effect) {
   sizeImage.classList.remove(currentEffect);
@@ -219,13 +272,19 @@ var changeImageEffectHandler = function (effect) {
   sizeImage.classList.add(currentEffect);
 };
 
+// обработчик событий для открытия формы кадрирования
+
 uploadFile.addEventListener('change', function () {
   onInputOpenFramingForm();
 });
 
+// обрабоитчик события для закрытия формы кадрирования
+
 cancelFraming.addEventListener('click', function () {
   closeFramingHandler();
 });
+
+// обработчик события для закрытия формы кадрирования на клавишу ESC
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESCAPE_KEYCODE) {
@@ -233,19 +292,28 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
+// обработчик собыитя для закрытия формы кадрирования на клавишу ENTER если крестик в фокусе
+
 document.addEventListener('keydown', function (evt) {
   if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === ENTER_KEYCODE) {
     closeFramingHandler();
   }
 });
 
+// обработчик события для уменьшения размера фотографии
+
 reduceImageSize.addEventListener('click', function () {
   changeImageSize(-1);
 });
 
+// обработчик события для увеличения размера фотографии
+
 increaseImageSize.addEventListener('click', function () {
   changeImageSize(1);
 });
+
+
+ // обработчик события для изменения эффектов изображению по клику
 
 parentEffectElement.addEventListener('click', function (evt) {
   var target = evt.target;
@@ -253,6 +321,8 @@ parentEffectElement.addEventListener('click', function (evt) {
     changeImageEffectHandler(target);
   }
 });
+
+// обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
 hashTags.addEventListener('input', function () {
   checkHashTagsHandler();
