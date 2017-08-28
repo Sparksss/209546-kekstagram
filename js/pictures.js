@@ -146,6 +146,8 @@ var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls')
 
 var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
+var validForm = uploadOverlay.querySelector('.upload-form-description');
+
 var MIN_VALUE = 25;
 
 var MAX_VALUE = 100;
@@ -173,6 +175,7 @@ var checkForTheSameWord = function (listTags, checkingTag, tagElement, index) {
   var lengthListTags = listTags.length;
   for (var j = 1; j < lengthListTags; j++) {
     if (listTags[j] === checkingTag && j !== index) {
+      tagElement.style.border = '2px solid red';
       tagElement.setCustomValidity('Теги не должны повторяться!');
       break;
     }
@@ -184,16 +187,20 @@ var checkHashTagsHandler = function (hashTag) {
   var maxLengthTag = 21;
   var listHashTag = hashTag.value.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
   hashTag.setCustomValidity('');
+  hashTag.style.border = '2px solid #9a9a9a';
   if (listHashTag === null) {
+    hashTag.style.border = '2px solid red';
     hashTag.setCustomValidity('Первый символ должен быть решеткой');
   } else {
     var lengthListHashTags = listHashTag.length;
     if (lengthListHashTags > maxHashTags) {
+      hashTag.style.border = '2px solid red';
       hashTag.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
     }
 
     for (var l = 0; l < lengthListHashTags; l++) {
       if (listHashTag[l].length > maxLengthTag) {
+        hashTag.style.border = '2px solid red';
         hashTag.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
         break;
       }
@@ -204,13 +211,27 @@ var checkHashTagsHandler = function (hashTag) {
   }
 };
 
-var currentEffect = 'effect-';
+var currentEffect = null;
 
 var changeImageEffectHandler = function (effect) {
-  currentEffect = sizeImage.className;
   sizeImage.classList.remove(currentEffect);
-  sizeImage.classList.add('effect-' + effect.value);
-  currentEffect += effect.value;
+  currentEffect = 'effect-' + effect.value;
+  sizeImage.classList.add(currentEffect);
+};
+
+var checkFields = function () {
+  if (!validForm.validity.valid) {
+    if (validForm.validity.tooShort) {
+      validForm.style.border = '2px solid red';
+      validForm.setCustomValidity('Комментарий должен состоять минимум из 30 символов.');
+    } else if (validForm.validity.tooLong){
+      validForm.style.border = '2px solid red';
+      validForm.setCustomValidity('Слишком длинный комментарий');
+    } else if (validForm.validity.valueMissing) {
+      validForm.style.border = '2px solid red';
+      validForm.setCustomValidity('Обязательное поле для заполнения.');
+    }
+  }
 };
 
 uploadFile.addEventListener('change', function () {
@@ -253,4 +274,8 @@ hashTags.addEventListener('input', function (evt) {
   if (target.value.length > 0) {
     checkHashTagsHandler(target);
   }
+});
+
+validForm.addEventListener('invalid', function () {
+  checkFields();
 });
