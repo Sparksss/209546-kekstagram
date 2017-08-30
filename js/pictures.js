@@ -2,7 +2,6 @@
 
 (function () {
   window.picturesPreview = {
-    pictureElements: window.preview.similarPictureElement.querySelectorAll('.picture'),
     closeGallery: window.preview.galleryOverlay.querySelector('.gallery-overlay-close'),
     checkCloseGallery: 'gallery-overlay-close',
     showPhoto: function (picture) {
