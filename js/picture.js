@@ -11,7 +11,6 @@
     },
     closePopup: function () {
       window.preview.galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
-      document.removeEventListener('keydown', window.utils.onPopupEscPress);
     }
   };
 })();

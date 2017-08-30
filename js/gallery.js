@@ -9,7 +9,6 @@
   var onClickOpenGallery = function (picture) {
     window.picturesPreview.showPhoto(picture);
     window.preview.galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
-    document.addEventListener('keydown', window.utils.onPopupEscPress);
   };
   var addClickHandler = function (picture) {
     picture.addEventListener('click', function (evt) {
@@ -20,6 +19,11 @@
   for (var i = 0; i < lengthPictureCollection; i++) {
     addClickHandler(allPictures[i]);
   }
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
+      window.picturesPreview.closePopup();
+    }
+  });
   window.preview.galleryOverlay.addEventListener('keydown', function (evt) {
     if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
       window.picturesPreview.closePopup();
