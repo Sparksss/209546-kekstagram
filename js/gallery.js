@@ -24,11 +24,7 @@
       window.picturesPreview.closePopup();
     }
   });
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
-      window.picturesPreview.closePopup();
-    }
-  });
+  document.addEventListener('keydown', window.utils.onPopupEscPress);
   window.picturesPreview.closeGallery.addEventListener('click', function () {
     window.picturesPreview.closePopup();
   });
