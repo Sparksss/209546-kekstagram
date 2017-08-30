@@ -4,20 +4,21 @@
   var croppingForm = document.querySelector('.upload-overlay');
   croppingForm.classList.add(window.collectionData.CLASS_HIDDEN);
   window.preview.similarPictureElement.appendChild(window.preview.getRenderPhotos());
-  var allPictures = window.preview.similarPictureElement.querySelectorAll('.picture');
-  var lengthPictureCollection = allPictures.length;
-  var onClickOpenGallery = function (picture) {
-    window.picturesPreview.showPhoto(picture);
+  var pictures = window.preview.similarPictureElement.querySelectorAll('.picture');
+  var lengthPictureCollection = pictures.length;
+  var onClickOpenGallery = function (index) {
+    window.picturesPreview.showPhoto(window.photoGallery[index]);
     window.preview.galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
   };
-  var addClickHandler = function (picture) {
+  var addClickHandler = function (picture, i) {
     picture.addEventListener('click', function (evt) {
       evt.preventDefault();
-      onClickOpenGallery(picture);
+      onClickOpenGallery(i);
     });
   };
+
   for (var i = 0; i < lengthPictureCollection; i++) {
-    addClickHandler(allPictures[i]);
+    addClickHandler(pictures[i], i);
   }
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {

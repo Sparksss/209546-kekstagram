@@ -5,10 +5,10 @@
     galleryOverlay: document.querySelector('.gallery-overlay'),
     similarPictureElement: document.querySelector('.pictures'),
     getRenderPhotos: function () {
-      var photoLength = photoGallery.length;
+      var photoLength = window.photoGallery.length;
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < photoLength; i++) {
-        fragment.appendChild(getRenderPictures(photoGallery[i]));
+        fragment.appendChild(getRenderPictures(window.photoGallery[i]));
       }
       return fragment;
     }
@@ -36,7 +36,7 @@
     }
     return photoGallery;
   };
-  var photoGallery = getArrayPictures();
+  window.photoGallery = getArrayPictures();
   var getRenderPictures = function (photo) {
     var photoElement = pictureTemplate.cloneNode(true);
     photoElement.querySelector('img').src = photo.url;
