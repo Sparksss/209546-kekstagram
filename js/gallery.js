@@ -9,6 +9,7 @@
   var onClickOpenGallery = function (picture) {
     window.picturesPreview.showPhoto(picture);
     window.preview.galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
+    document.addEventListener('keydown', window.utils.onPopupEscPress);
   };
   var addClickHandler = function (picture) {
     picture.addEventListener('click', function (evt) {
@@ -24,7 +25,6 @@
       window.picturesPreview.closePopup();
     }
   });
-  document.addEventListener('keydown', window.utils.onPopupEscPress);
   window.picturesPreview.closeGallery.addEventListener('click', function () {
     window.picturesPreview.closePopup();
   });

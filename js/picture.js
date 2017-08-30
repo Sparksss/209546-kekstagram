@@ -7,7 +7,7 @@
     showPhoto: function (picture) {
       window.preview.galleryOverlay.querySelector('.gallery-overlay-image').src = picture.querySelector('img').src;
       window.preview.galleryOverlay.querySelector('.likes-count').textContent = picture.querySelector('.picture-likes').textContent;
-      window.preview.galleryOverlay.querySelector('.comments-count').textContent = picture.querySelector('.picture-comments').length;
+      window.preview.galleryOverlay.querySelector('.comments-count').textContent = picture.querySelector('.picture-comments').textContent.length;
     },
     closePopup: function () {
       window.preview.galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
