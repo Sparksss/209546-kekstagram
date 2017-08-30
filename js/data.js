@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.collectionDate = {
+  window.collectionData = {
     COMMENTS: [
       'Всё отлично!',
       'В целом всё неплохо. Но не всё.',
@@ -12,9 +12,6 @@
     ],
     CLASS_HIDDEN: 'hidden',
     ESCAPE_KEYCODE: 27,
-    ENTER_KEYCODE: 13,
-    getRandomNumber: function (min, max) {
-      return Math.floor(min + Math.random() * (max + 1 - min));
-    }
+    ENTER_KEYCODE: 13
   };
 })();

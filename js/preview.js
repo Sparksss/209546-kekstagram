@@ -4,22 +4,21 @@
   window.preview = {
     galleryOverlay: document.querySelector('.gallery-overlay'),
     similarPictureElement: document.querySelector('.pictures'),
-    croppingForm: document.querySelector('.upload-overlay'),
     pictureTemplate: document.querySelector('#picture-template').content,
 
     getUserPhotos: function (number) {
       return {
         url: 'photos/' + number + '.jpg',
-        likes: window.collectionDate.getRandomNumber(15, 200),
+        likes: window.getRandomNumber(15, 200),
         comments: getRandomNumberComments()
       };
     },
 
     getRenderPhotos: function () {
-      var photoLength = photoGallery.length;
+      var photoLength = window.photoGallery.length;
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < photoLength; i++) {
-        fragment.appendChild(getRenderPictures(photoGallery[i]));
+        fragment.appendChild(getRenderPictures(window.photoGallery[i]));
       }
       return fragment;
     }
@@ -28,9 +27,9 @@
 
   var getRandomNumberComments = function () {
     var temporaryComments = [];
-    var commentsNumber = window.collectionDate.getRandomNumber(0, 50);
+    var commentsNumber = window.getRandomNumber(0, 50);
     for (var i = 0; i < commentsNumber; i++) {
-      temporaryComments[i] = window.collectionDate.COMMENTS[window.collectionDate.getRandomNumber(0, 5)];
+      temporaryComments[i] = window.collectionData.COMMENTS[window.getRandomNumber(0, 5)];
     }
     return temporaryComments;
   };
@@ -41,7 +40,7 @@
     }
     return photoGallery;
   };
-  var photoGallery = getArrayPictures();
+  window.photoGallery = getArrayPictures();
   var getRenderPictures = function (photo) {
     var photoElement = window.preview.pictureTemplate.cloneNode(true);
     photoElement.querySelector('img').src = photo.url;
