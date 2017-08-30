@@ -22,7 +22,7 @@
   }
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionDate.ENTER_KEYCODE) {
+    if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
       window.picturesPreview.closePopup();
     }
   });

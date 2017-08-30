@@ -15,10 +15,10 @@
     },
 
     getRenderPhotos: function () {
-      var photoLength = window.photoGallery.length;
+      var photoLength = photoGallery.length;
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < photoLength; i++) {
-        fragment.appendChild(getRenderPictures(window.photoGallery[i]));
+        fragment.appendChild(getRenderPictures(photoGallery[i]));
       }
       return fragment;
     }
@@ -40,7 +40,7 @@
     }
     return photoGallery;
   };
-  window.photoGallery = getArrayPictures();
+  var photoGallery = getArrayPictures();
   var getRenderPictures = function (photo) {
     var photoElement = window.preview.pictureTemplate.cloneNode(true);
     photoElement.querySelector('img').src = photo.url;
