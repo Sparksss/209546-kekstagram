@@ -2,8 +2,8 @@
 
 (function () {
   var galleryOverlay = document.querySelector('.gallery-overlay');
+  var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
   window.preview = {
-    closeGallery: galleryOverlay.querySelector('.gallery-overlay-close'),
     checkCloseGallery: 'gallery-overlay-close',
     showPhoto: function (pictureElement) {
       galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
@@ -34,7 +34,7 @@
       window.preview.closePopup();
     }
   });
-  window.preview.closeGallery.addEventListener('click', function () {
+  closeGallery.addEventListener('click', function () {
     window.preview.closePopup();
   });
 })();
