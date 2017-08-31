@@ -1,32 +1,35 @@
 'use strict';
 
 (function () {
-  window.preview = {
-    galleryOverlay: document.querySelector('.gallery-overlay'),
-    getRenderPhotos: function () {
-      var photoLength = window.photoGallery.length;
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < photoLength; i++) {
-        fragment.appendChild(getRenderPictures(window.photoGallery[i]));
-      }
-      return fragment;
+  window.picturesPreview = {
+    closeGallery: window.preview.galleryOverlay.querySelector('.gallery-overlay-close'),
+    checkCloseGallery: 'gallery-overlay-close',
+    showPhoto: function (pictureElement) {
+      window.preview.galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
+      window.preview.galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
+      window.preview.galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
+    },
+    addClickHandler: function (picture, i) {
+      picture.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        window.onClickOpenGallery(i);
+      });
+    },
+    closePopup: function () {
+      window.preview.galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
     }
   };
-  var pictureTemplate = document.querySelector('#picture-template').content;
-  var getArrayPictures = function () {
-    var photoGallery = [];
-    for (var i = 0; i <= 25; i++) {
-      photoGallery[i] = window.collectionData.getUserPhotos(i + 1);
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
+      window.picturesPreview.closePopup();
     }
-    return photoGallery;
-  };
-  window.photoGallery = getArrayPictures();
-  var getRenderPictures = function (photo) {
-    var photoElement = pictureTemplate.cloneNode(true);
-    photoElement.querySelector('img').src = photo.url;
-    photoElement.querySelector('.picture-comments').textContent = photo.comments.length;
-    photoElement.querySelector('.picture-likes').textContent = photo.likes;
-    return photoElement;
-  };
-
+  });
+  window.preview.galleryOverlay.addEventListener('keydown', function (evt) {
+    if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
+      window.picturesPreview.closePopup();
+    }
+  });
+  window.picturesPreview.closeGallery.addEventListener('click', function () {
+    window.picturesPreview.closePopup();
+  });
 })();
