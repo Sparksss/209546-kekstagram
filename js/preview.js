@@ -5,11 +5,6 @@
   var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
   var checkCloseGallery = 'gallery-overlay-close';
   window.preview = {
-    showPhoto: function (pictureElement) {
-      galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
-      galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
-      galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
-    },
     addClickHandler: function (picture, i) {
       picture.addEventListener('click', function (evt) {
         evt.preventDefault();
@@ -17,11 +12,16 @@
       });
     }
   };
+  var showPhoto = function (pictureElement) {
+    galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
+    galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
+    galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
+  };
   var closePopup = function () {
     galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
   };
   var onClickOpenGallery = function (index) {
-    window.preview.showPhoto(window.photoGallery[index]);
+    showPhoto(window.photoGallery[index]);
     galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
   };
   document.addEventListener('keydown', function (evt) {
