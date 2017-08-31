@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.preview = {
+  window.pictures = {
     getRenderPhotos: function () {
       var photoLength = window.photoGallery.length;
       var fragment = document.createDocumentFragment();

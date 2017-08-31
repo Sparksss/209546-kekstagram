@@ -2,7 +2,7 @@
 
 (function () {
   var galleryOverlay = document.querySelector('.gallery-overlay');
-  window.picturesPreview = {
+  window.preview = {
     closeGallery: galleryOverlay.querySelector('.gallery-overlay-close'),
     checkCloseGallery: 'gallery-overlay-close',
     showPhoto: function (pictureElement) {
@@ -22,15 +22,15 @@
   };
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
-      window.picturesPreview.closePopup();
+      window.preview.closePopup();
     }
   });
   galleryOverlay.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
-      window.picturesPreview.closePopup();
+    if (evt.target.classList.contains(window.preview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
+      window.preview.closePopup();
     }
   });
-  window.picturesPreview.closeGallery.addEventListener('click', function () {
-    window.picturesPreview.closePopup();
+  window.preview.closeGallery.addEventListener('click', function () {
+    window.preview.closePopup();
   });
 })();
