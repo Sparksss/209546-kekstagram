@@ -2,7 +2,6 @@
 
 (function () {
   window.preview = {
-    galleryOverlay: document.querySelector('.gallery-overlay'),
     getRenderPhotos: function () {
       var photoLength = window.photoGallery.length;
       var fragment = document.createDocumentFragment();

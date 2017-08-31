@@ -1,13 +1,14 @@
 'use strict';
 
 (function () {
+  var galleryOverlay = document.querySelector('.gallery-overlay');
   window.picturesPreview = {
-    closeGallery: window.preview.galleryOverlay.querySelector('.gallery-overlay-close'),
+    closeGallery: galleryOverlay.querySelector('.gallery-overlay-close'),
     checkCloseGallery: 'gallery-overlay-close',
     showPhoto: function (pictureElement) {
-      window.preview.galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
-      window.preview.galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
-      window.preview.galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
+      galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
+      galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
+      galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
     },
     addClickHandler: function (picture, i) {
       picture.addEventListener('click', function (evt) {
@@ -16,7 +17,7 @@
       });
     },
     closePopup: function () {
-      window.preview.galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
+      galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
     }
   };
   document.addEventListener('keydown', function (evt) {
@@ -24,7 +25,7 @@
       window.picturesPreview.closePopup();
     }
   });
-  window.preview.galleryOverlay.addEventListener('keydown', function (evt) {
+  galleryOverlay.addEventListener('keydown', function (evt) {
     if (evt.target.classList.contains(window.picturesPreview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
       window.picturesPreview.closePopup();
     }
