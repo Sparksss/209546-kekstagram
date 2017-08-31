@@ -111,11 +111,18 @@
 
 
 // функция для изменения эффета у изображения
-
+  var checkEffects = function () {
+    if (sizeImage.classList.contains('effect-none')) {
+      effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    } else {
+      effectLine.classList.remove(window.utils.CLASS_HIDDEN);
+    }
+  };
   var changeImageEffectHandler = function (effect) {
     sizeImage.classList.remove(currentEffect);
     currentEffect = 'effect-' + effect.value;
     sizeImage.classList.add(currentEffect);
+    checkEffects();
   };
 
 // обработчик событий для открытия формы кадрирования
@@ -160,7 +167,6 @@
 
 
   // обработчик события для изменения эффектов изображению по клику
-
   parentEffectElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (target.tagName.toLowerCase() === 'input') {
@@ -173,4 +179,51 @@
   hashTags.addEventListener('input', function () {
     checkHashTagsHandler();
   });
+
+  // делаем настройки фильтра по движению ползунка
+
+  var effectLine = document.querySelector('.upload-effect-level');
+
+  var uploadLine = effectLine.querySelector('.upload-effect-level-line');
+
+  var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
+
+  var checkEffect = function () {
+    if (sizeImage.classList < 2) {
+      sizeImage.classList.add(window.utils.CLASS_HIDDEN);
+    }
+  };
+
+  uploadPin.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    var startCords = {
+      x: evt.clientX
+    };
+
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      var shift = {
+        x: startCords.x - moveEvt.clientX
+      };
+      startCords = {
+        x: moveEvt.clientX
+      };
+      var checkPosition = parseInt(startCords.x, 10);
+      if (checkPosition > window.utils.MIN_POSITION && checkPosition < window.utils.MAX_POSITION) {
+        uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
+      }
+    };
+
+    var onMouseUp = function (upEvt) {
+
+      upEvt.preventDefault();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
 })();
