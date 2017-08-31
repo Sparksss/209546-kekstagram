@@ -18,19 +18,19 @@
     galleryOverlay.querySelector('.comments-count').textContent = pictureElement.comments.length;
   };
   var closePopup = function () {
-    galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
+    galleryOverlay.classList.add(window.utils.CLASS_HIDDEN);
   };
   var onClickOpenGallery = function (index) {
     showPhoto(window.photoGallery[index]);
-    galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
+    galleryOverlay.classList.remove(window.utils.CLASS_HIDDEN);
   };
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
+    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
       closePopup();
     }
   });
   galleryOverlay.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
+    if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === window.utils.ENTER_KEYCODE) {
       closePopup();
     }
   });

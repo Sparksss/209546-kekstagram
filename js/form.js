@@ -32,15 +32,15 @@
 // функция закрытия формы кадрирования
 
   var closeFramingHandler = function () {
-    downloadForm.classList.remove(window.collectionData.CLASS_HIDDEN);
-    uploadOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
+    downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
+    uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
   };
 
 // функция открытия формы кадрирования
 
   var onInputOpenFramingForm = function () {
-    uploadOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
-    downloadForm.classList.add(window.collectionData.CLASS_HIDDEN);
+    uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
+    downloadForm.classList.add(window.utils.CLASS_HIDDEN);
   };
 
 // функция изменения масштаба изображения
@@ -133,7 +133,7 @@
 // обработчик события для закрытия формы кадрирования на клавишу ESC
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
+    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
       closeFramingHandler();
     }
   });
@@ -141,7 +141,7 @@
 // обработчик собыитя для закрытия формы кадрирования на клавишу ENTER если крестик в фокусе
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
+    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
       closeFramingHandler();
     }
   });
