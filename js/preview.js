@@ -3,7 +3,6 @@
 (function () {
   window.preview = {
     galleryOverlay: document.querySelector('.gallery-overlay'),
-    similarPictureElement: document.querySelector('.pictures'),
     getRenderPhotos: function () {
       var photoLength = window.photoGallery.length;
       var fragment = document.createDocumentFragment();
@@ -14,25 +13,10 @@
     }
   };
   var pictureTemplate = document.querySelector('#picture-template').content;
-  var getUserPhotos = function (number) {
-    return {
-      url: 'photos/' + number + '.jpg',
-      likes: window.utils.getRandomNumber(15, 200),
-      comments: getRandomNumberComments()
-    };
-  };
-  var getRandomNumberComments = function () {
-    var temporaryComments = [];
-    var commentsNumber = window.utils.getRandomNumber(0, 50);
-    for (var i = 0; i < commentsNumber; i++) {
-      temporaryComments[i] = window.collectionData.COMMENTS[window.utils.getRandomNumber(0, 5)];
-    }
-    return temporaryComments;
-  };
   var getArrayPictures = function () {
     var photoGallery = [];
     for (var i = 0; i <= 25; i++) {
-      photoGallery[i] = getUserPhotos(i + 1);
+      photoGallery[i] = window.collectionData.getUserPhotos(i + 1);
     }
     return photoGallery;
   };
