@@ -15,10 +15,10 @@
         evt.preventDefault();
         onClickOpenGallery(i);
       });
-    },
-    closePopup: function () {
-      galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
     }
+  };
+  var closePopup = function () {
+    galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
   };
   var onClickOpenGallery = function (index) {
     window.preview.showPhoto(window.photoGallery[index]);
@@ -26,15 +26,15 @@
   };
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
-      window.preview.closePopup();
+      closePopup();
     }
   });
   galleryOverlay.addEventListener('keydown', function (evt) {
     if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
-      window.preview.closePopup();
+      closePopup();
     }
   });
   closeGallery.addEventListener('click', function () {
-    window.preview.closePopup();
+    closePopup();
   });
 })();
