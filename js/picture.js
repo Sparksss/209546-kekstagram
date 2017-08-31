@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var pictureTemplate = document.querySelector('#picture-template').content;
   window.pictures = {
     getRenderPhotos: function () {
       var photoLength = window.photoGallery.length;
@@ -11,7 +12,6 @@
       return fragment;
     }
   };
-  var pictureTemplate = document.querySelector('#picture-template').content;
   var getArrayPictures = function () {
     var photoGallery = [];
     for (var i = 0; i <= 25; i++) {
