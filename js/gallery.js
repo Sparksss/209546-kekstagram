@@ -8,10 +8,7 @@
   similarPictureElement.appendChild(window.pictures.getRenderPhotos());
   var pictures = similarPictureElement.querySelectorAll('.picture');
   var lengthPictureCollection = pictures.length;
-  window.onClickOpenGallery = function (index) {
-    window.preview.showPhoto(window.photoGallery[index]);
-    galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
-  };
+
 
   for (var i = 0; i < lengthPictureCollection; i++) {
     window.preview.addClickHandler(pictures[i], i);

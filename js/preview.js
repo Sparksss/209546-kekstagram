@@ -13,12 +13,16 @@
     addClickHandler: function (picture, i) {
       picture.addEventListener('click', function (evt) {
         evt.preventDefault();
-        window.onClickOpenGallery(i);
+        onClickOpenGallery(i);
       });
     },
     closePopup: function () {
       galleryOverlay.classList.add(window.collectionData.CLASS_HIDDEN);
     }
+  };
+  var onClickOpenGallery = function (index) {
+    window.preview.showPhoto(window.photoGallery[index]);
+    galleryOverlay.classList.remove(window.collectionData.CLASS_HIDDEN);
   };
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.collectionData.ESCAPE_KEYCODE) {
