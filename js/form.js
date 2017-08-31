@@ -188,12 +188,6 @@
 
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
 
-  var checkEffect = function () {
-    if (sizeImage.classList < 2) {
-      sizeImage.classList.add(window.utils.CLASS_HIDDEN);
-    }
-  };
-
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCords = {
