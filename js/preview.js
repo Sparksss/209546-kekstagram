@@ -3,8 +3,8 @@
 (function () {
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
+  var checkCloseGallery = 'gallery-overlay-close';
   window.preview = {
-    checkCloseGallery: 'gallery-overlay-close',
     showPhoto: function (pictureElement) {
       galleryOverlay.querySelector('.gallery-overlay-image').src = pictureElement.url;
       galleryOverlay.querySelector('.likes-count').textContent = pictureElement.likes;
@@ -30,7 +30,7 @@
     }
   });
   galleryOverlay.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(window.preview.checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
+    if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === window.collectionData.ENTER_KEYCODE) {
       window.preview.closePopup();
     }
   });
