@@ -109,6 +109,7 @@
 
   var currentEffect = null;
 
+  var selectedEffect = '';
 
 // функция для изменения эффета у изображения
   var checkEffects = function () {
@@ -118,11 +119,47 @@
       effectLine.classList.remove(window.utils.CLASS_HIDDEN);
     }
   };
+  var switchEffect = function () {
+    var effect = sizeImage.classList[1];
+    switch (effect) {
+      case 'effect-chrome':
+        sizeImage.style.filter = 'grayscale(20%)';
+        selectedEffect = 'grayscale(';
+        uploadPin.style.left = '20%';
+        break;
+      case 'effect-sepia':
+        sizeImage.style.filter = 'sepia(20%)';
+        selectedEffect = 'sepia(';
+        uploadPin.style.left = '20%';
+        break;
+      case 'effect-marvin':
+        sizeImage.style.filter = 'invert(20%)';
+        selectedEffect = 'invert(';
+        uploadPin.style.left = '20%';
+        break;
+      case 'effect-phobos':
+        sizeImage.style.filter = 'blur(20px)';
+        selectedEffect = 'blur(';
+        uploadPin.style.left = '20%';
+        break;
+      case 'effect-heat':
+        sizeImage.style.filter = 'brightness(20%)';
+        selectedEffect = 'brightness(';
+        uploadPin.style.left = '20%';
+        break;
+      default:
+        sizeImage.style.filter = '';
+        selectedEffect = '';
+        uploadPin.style.left = '20%';
+        break;
+    }
+  };
   var changeImageEffectHandler = function (effect) {
     sizeImage.classList.remove(currentEffect);
     currentEffect = 'effect-' + effect.value;
     sizeImage.classList.add(currentEffect);
     checkEffects();
+    switchEffect();
   };
 
 // обработчик событий для открытия формы кадрирования
@@ -187,6 +224,9 @@
   var uploadLine = effectLine.querySelector('.upload-effect-level-line');
 
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
+  effectLine.classList.add(window.utils.CLASS_HIDDEN);
+
+  var currentStyle = '';
 
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -200,11 +240,14 @@
       var shift = {
         x: startCords.x - moveEvt.clientX
       };
+
       startCords = {
         x: moveEvt.clientX
       };
+
       var checkPosition = parseInt(startCords.x, 10);
       if (checkPosition > window.utils.MIN_POSITION && checkPosition < window.utils.MAX_POSITION) {
+        sizeImage.style.filter = selectedEffect + parseInt((((startCords.x + 480) - 726 + (-shift.x)) / 10), 10) + '%)';
         uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
       }
     };
