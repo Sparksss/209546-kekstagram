@@ -113,8 +113,6 @@
 
   var units = '';
 
-  var onePercentOfLine = 0;
-
   var divisor = 0;
 
 // функция для изменения эффета у изображения
@@ -134,7 +132,6 @@
         selectedEffect = 'grayscale(';
         uploadPin.style.left = '0';
         units = ')';
-        onePercentOfLine = 4.6;
         divisor = 100;
         break;
       case 'effect-sepia':
@@ -142,7 +139,6 @@
         selectedEffect = 'sepia(';
         uploadPin.style.left = '0';
         units = ')';
-        onePercentOfLine = 4.6;
         divisor = 100;
         break;
       case 'effect-marvin':
@@ -150,7 +146,6 @@
         selectedEffect = 'invert(';
         uploadPin.style.left = '0%';
         units = '%)';
-        onePercentOfLine = 4.6;
         divisor = 1;
         break;
       case 'effect-phobos':
@@ -158,7 +153,6 @@
         selectedEffect = 'blur(';
         uploadPin.style.left = '0px';
         units = 'px)';
-        onePercentOfLine = 1.6;
         divisor = 100;
         break;
       case 'effect-heat':
@@ -166,7 +160,6 @@
         selectedEffect = 'brightness(';
         uploadPin.style.left = '0';
         units = ')';
-        onePercentOfLine = 1.6;
         divisor = 100;
         break;
       default:
@@ -249,33 +242,44 @@
 
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
-  var onePercentLoadLine = 4.5;
+
+  var loadLine = 0;
+
+
+  var getAdditionValue = function (calculation, move) {
+    sizeImage.style.filter = selectedEffect + calculation / divisor + units;
+    uploadLineVal.style.width = calculation + '%';
+    uploadPin.style.left = (uploadPin.offsetLeft - move.x) + 'px';
+  };
+  var getDecreaseValue = function (calculation, move) {
+    sizeImage.style.filter = selectedEffect + calculation / divisor + units;
+    uploadLineVal.style.width = -calculation + '%';
+    uploadPin.style.left = (uploadPin.offsetLeft + move.x) + 'px';
+  };
 
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCords = {
       x: evt.clientX
     };
+    var fullPercent = 100;
+    var widthLine = uploadLevelLine.offsetWidth;
+    var onePercentOfLine = widthLine / fullPercent;
 
-    var minPosition = startCords.x;
-    var maxPosition = minPosition + uploadLevelLine.offsetWidth - uploadPin.offsetWidth;
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
       var shift = {
         x: startCords.x - moveEvt.clientX
       };
+      loadLine = loadLine - shift.x;
+      var interestCalculation = parseInt(loadLine / onePercentOfLine, 10);
       startCords = {
         x: moveEvt.clientX
       };
-
-      var calculating = parseInt(((startCords.x - minPosition) / onePercentOfLine), 10) / divisor;
-      var checkPosition = startCords.x;
-      if (checkPosition > minPosition && checkPosition < maxPosition) {
-        if (calculating <= 100) {
-          sizeImage.style.filter = selectedEffect + calculating + units;
-        }
-        uploadLineVal.style.width = parseInt(((startCords.x - maxPosition) / onePercentLoadLine), 10) + '%';
-        uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
+      if (loadLine < widthLine) {
+        getAdditionValue(interestCalculation, shift);
+      } else if (loadLine > 0) {
+        getDecreaseValue(interestCalculation, shift);
       }
     };
 
