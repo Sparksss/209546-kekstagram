@@ -113,6 +113,10 @@
 
   var units = '';
 
+  var onePercentOfLine = 0;
+
+  var divisor = 0;
+
 // функция для изменения эффета у изображения
   var checkEffects = function () {
     if (sizeImage.classList.contains('effect-none')) {
@@ -130,30 +134,40 @@
         selectedEffect = 'grayscale(';
         uploadPin.style.left = '0';
         units = ')';
+        onePercentOfLine = 4.6;
+        divisor = 100;
         break;
       case 'effect-sepia':
         sizeImage.style.filter = 'sepia(0)';
         selectedEffect = 'sepia(';
         uploadPin.style.left = '0';
         units = ')';
+        onePercentOfLine = 4.6;
+        divisor = 100;
         break;
       case 'effect-marvin':
         sizeImage.style.filter = 'invert(0%)';
         selectedEffect = 'invert(';
         uploadPin.style.left = '0%';
         units = '%)';
+        onePercentOfLine = 4.6;
+        divisor = 1;
         break;
       case 'effect-phobos':
         sizeImage.style.filter = 'blur(0px)';
         selectedEffect = 'blur(';
         uploadPin.style.left = '0px';
         units = 'px)';
+        onePercentOfLine = 1.6;
+        divisor = 100;
         break;
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(0)';
         selectedEffect = 'brightness(';
         uploadPin.style.left = '0';
         units = ')';
+        onePercentOfLine = 1.6;
+        divisor = 100;
         break;
       default:
         sizeImage.style.filter = '';
@@ -234,6 +248,8 @@
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
+  var startPositionMouse = 720;
+
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCords = {
@@ -250,7 +266,7 @@
       startCords = {
         x: moveEvt.clientX
       };
-      var calculating = parseInt(((startCords.x - 720) / 4.6), 10) / 1;
+      var calculating = parseInt(((startCords.x - startPositionMouse) / onePercentOfLine), 10) / divisor;
       var checkPosition = startCords.x;
       if (checkPosition > window.utils.MIN_POSITION && checkPosition < window.utils.MAX_POSITION) {
         if (calculating <= 100) {
