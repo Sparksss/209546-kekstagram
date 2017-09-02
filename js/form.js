@@ -123,7 +123,7 @@
       effectLine.classList.add(window.utils.CLASS_HIDDEN);
     } else {
       effectLine.classList.remove(window.utils.CLASS_HIDDEN);
-      uploadLine.style.width = '0%';
+      uploadLineVal.style.width = '0%';
     }
   };
   var switchEffect = function () {
@@ -243,13 +243,12 @@
 
   var effectLine = document.querySelector('.upload-effect-level');
 
-  var uploadLine = effectLine.querySelector('.upload-effect-level-val');
+  var uploadLineVal = effectLine.querySelector('.upload-effect-level-val');
+
+  var uploadLevelLine = effectLine.querySelector('.upload-effect-level-line');
 
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
-
-  var MIN_POSITION = 720;
-  var MAX_POSITION = 1170;
   var onePercentLoadLine = 4.5;
 
   uploadPin.addEventListener('mousedown', function (evt) {
@@ -258,23 +257,24 @@
       x: evt.clientX
     };
 
+    var minPosition = startCords.x;
+    var maxPosition = minPosition + uploadLevelLine.offsetWidth - uploadPin.offsetWidth;
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
       var shift = {
         x: startCords.x - moveEvt.clientX
       };
-
       startCords = {
         x: moveEvt.clientX
       };
-      var calculating = parseInt(((startCords.x - MIN_POSITION) / onePercentOfLine), 10) / divisor;
+
+      var calculating = parseInt(((startCords.x - minPosition) / onePercentOfLine), 10) / divisor;
       var checkPosition = startCords.x;
-      if (checkPosition > MIN_POSITION && checkPosition < MAX_POSITION) {
+      if (checkPosition > minPosition && checkPosition < maxPosition) {
         if (calculating <= 100) {
           sizeImage.style.filter = selectedEffect + calculating + units;
         }
-        uploadLine.style.width = parseInt(((startCords.x - 720) / onePercentLoadLine), 10) + '%';
+        uploadLineVal.style.width = parseInt(((startCords.x - maxPosition) / onePercentLoadLine), 10) + '%';
         uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
       }
     };
