@@ -248,7 +248,9 @@
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
-  var startPositionMouse = 720;
+  var MIN_POSITION = 720;
+  var MAX_POSITION = 1170;
+  var onePercentLoadLine = 4.5;
 
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -266,13 +268,13 @@
       startCords = {
         x: moveEvt.clientX
       };
-      var calculating = parseInt(((startCords.x - startPositionMouse) / onePercentOfLine), 10) / divisor;
+      var calculating = parseInt(((startCords.x - MIN_POSITION) / onePercentOfLine), 10) / divisor;
       var checkPosition = startCords.x;
-      if (checkPosition > window.utils.MIN_POSITION && checkPosition < window.utils.MAX_POSITION) {
+      if (checkPosition > MIN_POSITION && checkPosition < MAX_POSITION) {
         if (calculating <= 100) {
           sizeImage.style.filter = selectedEffect + calculating + units;
         }
-        uploadLine.style.width = parseInt(((startCords.x - 720) / 4.5), 10) + '%';
+        uploadLine.style.width = parseInt(((startCords.x - 720) / onePercentLoadLine), 10) + '%';
         uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
       }
     };
@@ -289,3 +291,4 @@
   });
 
 })();
+
