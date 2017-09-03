@@ -115,6 +115,7 @@
 
   var divisor = 0;
 
+
 // функция для изменения эффета у изображения
   var checkEffects = function () {
     if (sizeImage.classList.contains('effect-none')) {
@@ -153,14 +154,14 @@
         selectedEffect = 'blur(';
         uploadPin.style.left = '0px';
         units = 'px)';
-        divisor = 100;
+        divisor = 30;
         break;
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(0)';
         selectedEffect = 'brightness(';
         uploadPin.style.left = '0';
         units = ')';
-        divisor = 100;
+        divisor = 30;
         break;
       default:
         sizeImage.style.filter = '';
@@ -245,21 +246,14 @@
 
   var loadLine = 0;
 
-  var getAdditionValue = function (calculation) {
-    sizeImage.style.filter = selectedEffect + calculation / divisor + units;
-  };
-  var getDecreaseValue = function (calculation) {
-    sizeImage.style.filter = selectedEffect + calculation / divisor + units;
-  };
-
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCords = {
       x: evt.clientX
     };
     var fullPercent = 100;
-    var widthLine = uploadLevelLine.offsetWidth;
-    var onePercentOfLine = widthLine / fullPercent;
+    var sliderWidth = uploadLevelLine.offsetWidth;
+    var onePercentOfLine = sliderWidth / fullPercent;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -271,16 +265,20 @@
       startCords = {
         x: moveEvt.clientX
       };
-      if (loadLine < widthLine) {
-        getAdditionValue(interestCalculation);
-      } else if (loadLine > 0) {
-        getDecreaseValue(interestCalculation);
+
+      var left = uploadPin.offsetLeft - shift.x;
+      if (left < sliderWidth) {
+        sizeImage.style.filter = selectedEffect + (interestCalculation / divisor).toFixed(1) + units;
       }
-      var shiftPin = uploadPin.offsetLeft + shift.x;
-      if (shiftPin < widthLine) {
-        uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
-        uploadLineVal.style.width = shiftPin / onePercentOfLine + '%';
+
+      if (left < 0) {
+        left = 0;
+      } else if (left > sliderWidth) {
+        left = sliderWidth;
       }
+
+      uploadPin.style.left = left + 'px';
+      uploadLineVal.style.width = left + 'px';
     };
 
     var onMouseUp = function (upEvt) {
