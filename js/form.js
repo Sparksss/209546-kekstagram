@@ -245,16 +245,11 @@
 
   var loadLine = 0;
 
-
-  var getAdditionValue = function (calculation, move) {
+  var getAdditionValue = function (calculation) {
     sizeImage.style.filter = selectedEffect + calculation / divisor + units;
-    uploadLineVal.style.width = calculation + '%';
-    uploadPin.style.left = (uploadPin.offsetLeft - move.x) + 'px';
   };
-  var getDecreaseValue = function (calculation, move) {
+  var getDecreaseValue = function (calculation) {
     sizeImage.style.filter = selectedEffect + calculation / divisor + units;
-    uploadLineVal.style.width = -calculation + '%';
-    uploadPin.style.left = (uploadPin.offsetLeft + move.x) + 'px';
   };
 
   uploadPin.addEventListener('mousedown', function (evt) {
@@ -277,9 +272,14 @@
         x: moveEvt.clientX
       };
       if (loadLine < widthLine) {
-        getAdditionValue(interestCalculation, shift);
+        getAdditionValue(interestCalculation);
       } else if (loadLine > 0) {
-        getDecreaseValue(interestCalculation, shift);
+        getDecreaseValue(interestCalculation);
+      }
+      var shiftPin = uploadPin.offsetLeft + shift.x;
+      if (shiftPin < widthLine) {
+        uploadPin.style.left = (uploadPin.offsetLeft - shift.x) + 'px';
+        uploadLineVal.style.width = shiftPin / onePercentOfLine + '%';
       }
     };
 
