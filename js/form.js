@@ -266,11 +266,6 @@
         x: moveEvt.clientX
       };
       var left = uploadPin.offsetLeft - shift.x;
-      var calculation = parseInt(loadLine / onePercentOfLine, 10);
-      if (calculation < fullPercent) {
-        sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
-
-      }
 
       if (left < 0) {
         left = 0;
@@ -278,6 +273,11 @@
         left = sliderWidth;
       }
 
+      var calculation = parseInt(loadLine / onePercentOfLine, 10);
+      if (calculation < fullPercent) {
+        sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
+
+      }
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
     };
