@@ -109,11 +109,13 @@
 
   var currentEffect = null;
 
-  var selectedEffect = '';
+  var selectedEffect = 'none';
 
   var units = '';
 
   var divisor = 0;
+
+  var loadLine = 0;
 
 
 // функция для изменения эффета у изображения
@@ -131,16 +133,18 @@
       case 'effect-chrome':
         sizeImage.style.filter = 'grayscale(0)';
         selectedEffect = 'grayscale(';
-        uploadPin.style.left = '0';
+        uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
+        loadLine = 0;
         break;
       case 'effect-sepia':
         sizeImage.style.filter = 'sepia(0)';
         selectedEffect = 'sepia(';
-        uploadPin.style.left = '0';
+        uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
+        loadLine = 0;
         break;
       case 'effect-marvin':
         sizeImage.style.filter = 'invert(0%)';
@@ -148,23 +152,26 @@
         uploadPin.style.left = '0%';
         units = '%)';
         divisor = 1;
+        loadLine = 0;
         break;
       case 'effect-phobos':
         sizeImage.style.filter = 'blur(0px)';
         selectedEffect = 'blur(';
-        uploadPin.style.left = '0px';
+        uploadPin.style.left = '0%';
         units = 'px)';
         divisor = 30;
+        loadLine = 0;
         break;
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(0)';
         selectedEffect = 'brightness(';
-        uploadPin.style.left = '0';
+        uploadPin.style.left = '0%';
         units = ')';
         divisor = 30;
+        loadLine = 0;
         break;
       default:
-        sizeImage.style.filter = '';
+        sizeImage.style.filter = 'none';
         selectedEffect = '';
         uploadPin.style.left = '0';
         break;
@@ -244,8 +251,6 @@
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
-  var loadLine = 0;
-
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCords = {
@@ -261,14 +266,14 @@
         x: startCords.x - moveEvt.clientX
       };
       loadLine = loadLine - shift.x;
-      var interestCalculation = parseInt(loadLine / onePercentOfLine, 10);
       startCords = {
         x: moveEvt.clientX
       };
-
       var left = uploadPin.offsetLeft - shift.x;
-      if (left < sliderWidth) {
-        sizeImage.style.filter = selectedEffect + (interestCalculation / divisor).toFixed(1) + units;
+      var calculation = parseInt(loadLine / onePercentOfLine, 10);
+      if (calculation < fullPercent) {
+        sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
+
       }
 
       if (left < 0) {
