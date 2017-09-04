@@ -136,7 +136,6 @@
         uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
-        loadLine = 0;
         break;
       case 'effect-sepia':
         sizeImage.style.filter = 'sepia(0)';
@@ -144,7 +143,6 @@
         uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
-        loadLine = 0;
         break;
       case 'effect-marvin':
         sizeImage.style.filter = 'invert(0%)';
@@ -152,7 +150,6 @@
         uploadPin.style.left = '0%';
         units = '%)';
         divisor = 1;
-        loadLine = 0;
         break;
       case 'effect-phobos':
         sizeImage.style.filter = 'blur(0px)';
@@ -160,7 +157,6 @@
         uploadPin.style.left = '0%';
         units = 'px)';
         divisor = 30;
-        loadLine = 0;
         break;
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(0)';
@@ -168,7 +164,6 @@
         uploadPin.style.left = '0%';
         units = ')';
         divisor = 30;
-        loadLine = 0;
         break;
       default:
         sizeImage.style.filter = 'none';
@@ -176,6 +171,7 @@
         uploadPin.style.left = '0';
         break;
     }
+    loadLine = 0;
   };
   var changeImageEffectHandler = function (effect) {
     sizeImage.classList.remove(currentEffect);
