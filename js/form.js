@@ -270,10 +270,7 @@
       var calculation = parseInt(loadLine / onePercentOfLine, 10);
       if (calculation < fullPercent && calculation > -1) {
         if (sizeImage.classList.contains('effect-heat')) {
-          var saturation = (calculation / divisor).toFixed(1);
-          if (saturation > 1) {
-            sizeImage.style.filter = selectedEffect + saturation + units;
-          }
+          sizeImage.style.filter = selectedEffect + (calculation / divisor + 1).toFixed(1) + units;
         } else {
           sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
         }
