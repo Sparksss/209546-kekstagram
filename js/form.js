@@ -25,6 +25,8 @@
 
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
+  var input = parentEffectElement.querySelector('input[name="effect"]');
+
   var MIN_VALUE = 25;
 
   var MAX_VALUE = 100;
@@ -127,34 +129,33 @@
       uploadLineVal.style.width = '0%';
     }
   };
-  var switchEffect = function () {
-    var effect = sizeImage.classList[1];
-    switch (effect) {
-      case 'effect-chrome':
+  var switchEffect = function (currentFilter) {
+    switch (currentFilter) {
+      case 'chrome':
         sizeImage.style.filter = 'grayscale(0)';
         selectedEffect = 'grayscale(';
         units = ')';
         divisor = 100;
         break;
-      case 'effect-sepia':
+      case 'sepia':
         sizeImage.style.filter = 'sepia(0)';
         selectedEffect = 'sepia(';
         units = ')';
         divisor = 100;
         break;
-      case 'effect-marvin':
+      case 'marvin':
         sizeImage.style.filter = 'invert(0%)';
         selectedEffect = 'invert(';
         units = '%)';
         divisor = 1;
         break;
-      case 'effect-phobos':
+      case 'phobos':
         sizeImage.style.filter = 'blur(0px)';
         selectedEffect = 'blur(';
         units = 'px)';
         divisor = 30;
         break;
-      case 'effect-heat':
+      case 'heat':
         sizeImage.style.filter = 'brightness(1)';
         selectedEffect = 'brightness(';
         units = ')';
@@ -173,7 +174,7 @@
     currentEffect = 'effect-' + effect.value;
     sizeImage.classList.add(currentEffect);
     checkEffects();
-    switchEffect();
+    switchEffect(effect.value);
   };
 
 // обработчик событий для открытия формы кадрирования
