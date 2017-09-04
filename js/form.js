@@ -274,9 +274,8 @@
       }
 
       var calculation = parseInt(loadLine / onePercentOfLine, 10);
-      if (calculation < fullPercent) {
+      if (calculation < fullPercent && calculation > -1) {
         sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
-
       }
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
