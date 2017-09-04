@@ -113,9 +113,7 @@
 
   var units = '';
 
-  var divisor = 0;
-
-  var loadLine = 0;
+  var multiplier = 0;
 
 
 // функция для изменения эффета у изображения
@@ -128,45 +126,33 @@
     }
   };
   var switchEffect = function (currentFilter) {
+    units = '';
+    multiplier = 1;
+
     switch (currentFilter) {
       case 'chrome':
-        sizeImage.style.filter = 'grayscale(0)';
-        selectedEffect = 'grayscale(';
-        units = ')';
-        divisor = 100;
+        selectedEffect = 'grayscale';
         break;
       case 'sepia':
-        sizeImage.style.filter = 'sepia(0)';
-        selectedEffect = 'sepia(';
-        units = ')';
-        divisor = 100;
+        selectedEffect = 'sepia';
         break;
       case 'marvin':
-        sizeImage.style.filter = 'invert(0%)';
-        selectedEffect = 'invert(';
-        units = '%)';
-        divisor = 1;
+        selectedEffect = 'invert';
         break;
       case 'phobos':
-        sizeImage.style.filter = 'blur(0px)';
-        selectedEffect = 'blur(';
-        units = 'px)';
-        divisor = 30;
+        selectedEffect = 'blur';
+        units = 'px';
+        multiplier = 10;
         break;
       case 'heat':
-        sizeImage.style.filter = 'brightness(1)';
-        selectedEffect = 'brightness(';
-        units = ')';
-        divisor = 30;
-        break;
-      default:
-        sizeImage.style.filter = 'none';
-        selectedEffect = '';
+        selectedEffect = 'brightness';
+        multiplier = 3;
         break;
     }
-    uploadPin.style.left = '0%';
-    loadLine = 0;
+    sizeImage.style.filter = 'none';
+    uploadPin.style.left = 0;
   };
+
   var changeImageEffectHandler = function (effect) {
     sizeImage.classList.remove(currentEffect);
     currentEffect = 'effect-' + effect.value;
@@ -243,23 +229,16 @@
 
   uploadPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    var startCords = {
-      x: evt.clientX
-    };
-    var fullPercent = 100;
+    var startX = evt.clientX;
     var sliderWidth = uploadLevelLine.offsetWidth;
-    var onePercentOfLine = sliderWidth / fullPercent;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      var shift = {
-        x: startCords.x - moveEvt.clientX
-      };
-      loadLine = loadLine - shift.x;
-      startCords = {
-        x: moveEvt.clientX
-      };
-      var left = uploadPin.offsetLeft - shift.x;
+      var shiftX = startX - moveEvt.clientX;
+
+      startX = moveEvt.clientX;
+
+      var left = uploadPin.offsetLeft - shiftX;
 
       if (left < 0) {
         left = 0;
@@ -267,20 +246,19 @@
         left = sliderWidth;
       }
 
-      var calculation = parseInt(loadLine / onePercentOfLine, 10);
-      if (calculation < fullPercent && calculation > -1) {
-        if (sizeImage.classList.contains('effect-heat')) {
-          sizeImage.style.filter = selectedEffect + (calculation / divisor + 1).toFixed(1) + units;
-        } else {
-          sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
-        }
+      var filterValue = Math.round(left / sliderWidth * multiplier * 100) / 100;
+
+      if (selectedEffect === 'brightness') {
+        filterValue += 1;
       }
+
+      sizeImage.style.filter = selectedEffect + '(' + filterValue + units + ')';
+
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
     };
 
     var onMouseUp = function (upEvt) {
-
       upEvt.preventDefault();
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
