@@ -133,44 +133,39 @@
       case 'effect-chrome':
         sizeImage.style.filter = 'grayscale(0)';
         selectedEffect = 'grayscale(';
-        uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
         break;
       case 'effect-sepia':
         sizeImage.style.filter = 'sepia(0)';
         selectedEffect = 'sepia(';
-        uploadPin.style.left = '0%';
         units = ')';
         divisor = 100;
         break;
       case 'effect-marvin':
         sizeImage.style.filter = 'invert(0%)';
         selectedEffect = 'invert(';
-        uploadPin.style.left = '0%';
         units = '%)';
         divisor = 1;
         break;
       case 'effect-phobos':
         sizeImage.style.filter = 'blur(0px)';
         selectedEffect = 'blur(';
-        uploadPin.style.left = '0%';
         units = 'px)';
         divisor = 30;
         break;
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(1)';
         selectedEffect = 'brightness(';
-        uploadPin.style.left = '0%';
         units = ')';
         divisor = 30;
         break;
       default:
         sizeImage.style.filter = 'none';
         selectedEffect = '';
-        uploadPin.style.left = '0';
         break;
     }
+    uploadPin.style.left = '0%';
     loadLine = 0;
   };
   var changeImageEffectHandler = function (effect) {
@@ -274,6 +269,9 @@
       }
 
       var calculation = parseInt(loadLine / onePercentOfLine, 10);
+      if (sizeImage.classList.contains('effect-heat')) {
+        calculation = parseInt(loadLine / onePercentOfLine, 10);
+      }
       if (calculation < fullPercent && calculation > -1) {
         sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
       }
