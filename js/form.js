@@ -290,5 +290,4 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-})
-();
+})();
