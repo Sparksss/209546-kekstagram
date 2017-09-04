@@ -161,11 +161,9 @@
       case 'effect-heat':
         sizeImage.style.filter = 'brightness(1)';
         selectedEffect = 'brightness(';
-        uploadPin.style.left = '29%';
+        uploadPin.style.left = '0%';
         units = ')';
         divisor = 30;
-        loadLine = 29;
-        uploadLineVal.style.width = 29 + '%';
         break;
       default:
         sizeImage.style.filter = 'none';
@@ -257,7 +255,6 @@
     var fullPercent = 100;
     var sliderWidth = uploadLevelLine.offsetWidth;
     var onePercentOfLine = sliderWidth / fullPercent;
-    var percentsForHeat = 30;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -276,11 +273,7 @@
         left = sliderWidth;
       }
 
-      var currentNumberPosition = onePercentOfLine * percentsForHeat;
       var calculation = parseInt(loadLine / onePercentOfLine, 10);
-      if (sizeImage.classList.contains('effect-heat')) {
-        calculation = parseInt(loadLine + currentNumberPosition / onePercentOfLine, 10);
-      }
       if (calculation < fullPercent && calculation > -1) {
         sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
       }
