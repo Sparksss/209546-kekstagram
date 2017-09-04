@@ -25,8 +25,6 @@
 
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
-  var input = parentEffectElement.querySelector('input[name="effect"]');
-
   var MIN_VALUE = 25;
 
   var MAX_VALUE = 100;
