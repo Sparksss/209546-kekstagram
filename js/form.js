@@ -142,7 +142,7 @@
       case 'phobos':
         selectedEffect = 'blur';
         units = 'px';
-        multiplier = 10;
+        multiplier = 3;
         break;
       case 'heat':
         selectedEffect = 'brightness';
@@ -251,6 +251,7 @@
       if (selectedEffect === 'brightness') {
         filterValue += 1;
       }
+      console.log(filterValue);
 
       sizeImage.style.filter = selectedEffect + '(' + filterValue + units + ')';
 
