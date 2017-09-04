@@ -109,13 +109,56 @@
 
   var currentEffect = null;
 
+  var selectedEffect = 'none';
+
+  var units = '';
+
+  var multiplier = 0;
+
 
 // функция для изменения эффета у изображения
+  var checkEffects = function () {
+    if (sizeImage.classList.contains('effect-none')) {
+      effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    } else {
+      effectLine.classList.remove(window.utils.CLASS_HIDDEN);
+      uploadLineVal.style.width = '0%';
+    }
+  };
+  var switchEffect = function (currentFilter) {
+    units = '';
+    multiplier = 1;
+
+    switch (currentFilter) {
+      case 'chrome':
+        selectedEffect = 'grayscale';
+        break;
+      case 'sepia':
+        selectedEffect = 'sepia';
+        break;
+      case 'marvin':
+        selectedEffect = 'invert';
+        break;
+      case 'phobos':
+        selectedEffect = 'blur';
+        units = 'px';
+        multiplier = 10;
+        break;
+      case 'heat':
+        selectedEffect = 'brightness';
+        multiplier = 3;
+        break;
+    }
+    sizeImage.style.filter = 'none';
+    uploadPin.style.left = 0;
+  };
 
   var changeImageEffectHandler = function (effect) {
     sizeImage.classList.remove(currentEffect);
     currentEffect = 'effect-' + effect.value;
     sizeImage.classList.add(currentEffect);
+    checkEffects();
+    switchEffect(effect.value);
   };
 
 // обработчик событий для открытия формы кадрирования
@@ -160,7 +203,6 @@
 
 
   // обработчик события для изменения эффектов изображению по клику
-
   parentEffectElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (target.tagName.toLowerCase() === 'input') {
@@ -173,4 +215,57 @@
   hashTags.addEventListener('input', function () {
     checkHashTagsHandler();
   });
+
+  // делаем настройки фильтра по движению ползунка
+
+  var effectLine = document.querySelector('.upload-effect-level');
+
+  var uploadLineVal = effectLine.querySelector('.upload-effect-level-val');
+
+  var uploadLevelLine = effectLine.querySelector('.upload-effect-level-line');
+
+  var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
+  effectLine.classList.add(window.utils.CLASS_HIDDEN);
+
+  uploadPin.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    var startX = evt.clientX;
+    var sliderWidth = uploadLevelLine.offsetWidth;
+
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+      var shiftX = startX - moveEvt.clientX;
+
+      startX = moveEvt.clientX;
+
+      var left = uploadPin.offsetLeft - shiftX;
+
+      if (left < 0) {
+        left = 0;
+      } else if (left > sliderWidth) {
+        left = sliderWidth;
+      }
+
+      var filterValue = Math.round(left / sliderWidth * multiplier * 100) / 100;
+
+      if (selectedEffect === 'brightness') {
+        filterValue += 1;
+      }
+
+      sizeImage.style.filter = selectedEffect + '(' + filterValue + units + ')';
+
+      uploadPin.style.left = left + 'px';
+      uploadLineVal.style.width = left + 'px';
+    };
+
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
 })();
