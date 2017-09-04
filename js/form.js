@@ -268,11 +268,12 @@
       }
 
       var calculation = parseInt(loadLine / onePercentOfLine, 10);
-      if (sizeImage.classList.contains('effect-heat')) {
-        calculation = parseInt(loadLine / onePercentOfLine, 10);
-      }
       if (calculation < fullPercent && calculation > -1) {
-        sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
+        if (sizeImage.classList.contains('effect-heat') && calculation / divisor > 1) {
+          sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
+        } else {
+          sizeImage.style.filter = selectedEffect + (calculation / divisor).toFixed(1) + units;
+        }
       }
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
@@ -289,4 +290,5 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-})();
+})
+();
