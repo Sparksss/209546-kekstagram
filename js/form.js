@@ -13,9 +13,7 @@
 
   var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
-  var reduceImageSize = uploadOverlay.querySelector('.upload-resize-controls-button-dec');
-
-  var increaseImageSize = uploadOverlay.querySelector('.upload-resize-controls-button-inc ');
+  var resizeControls = document.querySelector('.upload-resize-controls');
 
   var scaleElement = uploadOverlay.querySelector('.upload-resize-controls-value');
 
@@ -24,6 +22,10 @@
   var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
 
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
+
+  var reduceImageSize = 'upload-resize-controls-button-dec';
+
+  var increaseImageSize = 'upload-resize-controls-button-inc';
 
 // функция закрытия формы кадрирования
 
@@ -183,16 +185,15 @@
 
 // обработчик события для уменьшения размера фотографии
 
-  reduceImageSize.addEventListener('click', function () {
-    window.initializeScale(scaleElement, adjustScale, -1);
+// обработчик события для изменения размера фотографии
+  resizeControls.addEventListener('click', function (evt) {
+    var target = evt.target;
+    if (target.classList.contains(reduceImageSize)) {
+      window.initializeScale(scaleElement, adjustScale, -1);
+    } else if (target.classList.contains(increaseImageSize)) {
+      window.initializeScale(scaleElement, adjustScale, 1);
+    }
   });
-
-// обработчик события для увеличения размера фотографии
-
-  increaseImageSize.addEventListener('click', function () {
-    window.initializeScale(scaleElement, adjustScale, 1);
-  });
-
 
   // обработчик события для изменения эффектов изображению по клику
   parentEffectElement.addEventListener('click', function (evt) {
