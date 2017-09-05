@@ -197,7 +197,7 @@
   parentEffectElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (target.tagName.toLowerCase() === 'input') {
-      changeImageEffectHandler(target);
+      window.initializeFilters(changeImageEffectHandler, target);
     }
   });
 
