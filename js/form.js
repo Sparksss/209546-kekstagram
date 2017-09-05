@@ -13,19 +13,12 @@
 
   var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
-  var resizeControls = document.querySelector('.upload-resize-controls');
-
-  var scaleElement = uploadOverlay.querySelector('.upload-resize-controls-value');
-
   var pictureElement = uploadOverlay.querySelector('.effect-image-preview');
 
   var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
 
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
 
-  var reduceImageSize = 'upload-resize-controls-button-dec';
-
-  var increaseImageSize = 'upload-resize-controls-button-inc';
 
 // функция закрытия формы кадрирования
 
@@ -39,12 +32,6 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
-  };
-
-// функция изменения масштаба изображения
-
-  var adjustScale = function (newValue) {
-    pictureElement.style.transform = 'scale(' + newValue / 100 + ')';
   };
 
 // функция проверки хеш-тегов на идентичность
@@ -182,22 +169,11 @@
       closeFramingHandler();
     }
   });
-
-// обработчик события для изменения размера фотографии
-  resizeControls.addEventListener('click', function (evt) {
-    var target = evt.target;
-    if (target.classList.contains(reduceImageSize)) {
-      window.initializeScale(scaleElement, adjustScale, -1);
-    } else if (target.classList.contains(increaseImageSize)) {
-      window.initializeScale(scaleElement, adjustScale, 1);
-    }
-  });
-
   // обработчик события для изменения эффектов изображения по клику
   parentEffectElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (target.tagName.toLowerCase() === 'input') {
-      window.initializeFilters(changeImageEffectHandler, target);
+      changeImageEffectHandler(target);
     }
   });
 
