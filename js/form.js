@@ -161,7 +161,7 @@
     onInputOpenFramingForm();
   });
 
-// обрабоитчик события для закрытия формы кадрирования
+// обработчик события для закрытия формы кадрирования
 
   cancelFraming.addEventListener('click', function () {
     closeFramingHandler();
@@ -183,8 +183,6 @@
     }
   });
 
-// обработчик события для уменьшения размера фотографии
-
 // обработчик события для изменения размера фотографии
   resizeControls.addEventListener('click', function (evt) {
     var target = evt.target;
@@ -195,7 +193,7 @@
     }
   });
 
-  // обработчик события для изменения эффектов изображению по клику
+  // обработчик события для изменения эффектов изображения по клику
   parentEffectElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (target.tagName.toLowerCase() === 'input') {

@@ -6,11 +6,11 @@
 
   var MAX_VALUE = 100;
 
-  window.initializeScale = function (controlSizeImage, adjustScale, direction) {
+  window.initializeScale = function (controlSizeImage, callback, direction) {
     var newValue = parseInt(controlSizeImage.value, 10) + 25 * direction;
     if (newValue >= MIN_VALUE && newValue <= MAX_VALUE) {
       controlSizeImage.value = newValue + '%';
-      adjustScale(newValue);
+      callback(newValue);
     }
   };
 })();
