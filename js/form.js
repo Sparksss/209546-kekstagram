@@ -13,11 +13,9 @@
 
   var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
-  var pictureElement = uploadOverlay.querySelector('.effect-image-preview');
-
-  var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
-
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
+
+  var pictureElement = uploadOverlay.querySelector('.effect-image-preview');
 
 
 // функция закрытия формы кадрирования
@@ -85,63 +83,6 @@
     }
   };
 
-
-  // переменная для записи классов
-
-  var currentEffect = null;
-
-  var selectedEffect = 'none';
-
-  var units = '';
-
-  var multiplier = 0;
-
-
-// функция для изменения эффета у изображения
-  var checkEffects = function () {
-    if (pictureElement.classList.contains('effect-none')) {
-      effectLine.classList.add(window.utils.CLASS_HIDDEN);
-    } else {
-      effectLine.classList.remove(window.utils.CLASS_HIDDEN);
-      uploadLineVal.style.width = '0%';
-    }
-  };
-  var switchEffect = function (currentFilter) {
-    units = '';
-    multiplier = 1;
-
-    switch (currentFilter) {
-      case 'chrome':
-        selectedEffect = 'grayscale';
-        break;
-      case 'sepia':
-        selectedEffect = 'sepia';
-        break;
-      case 'marvin':
-        selectedEffect = 'invert';
-        break;
-      case 'phobos':
-        selectedEffect = 'blur';
-        units = 'px';
-        multiplier = 10;
-        break;
-      case 'heat':
-        selectedEffect = 'brightness';
-        multiplier = 3;
-        break;
-    }
-    pictureElement.style.filter = 'none';
-    uploadPin.style.left = 0;
-  };
-
-  var changeImageEffectHandler = function (effect) {
-    pictureElement.classList.remove(currentEffect);
-    currentEffect = 'effect-' + effect.value;
-    pictureElement.classList.add(currentEffect);
-    checkEffects();
-    switchEffect(effect.value);
-  };
-
 // обработчик событий для открытия формы кадрирования
 
   uploadFile.addEventListener('change', function () {
@@ -169,13 +110,6 @@
       closeFramingHandler();
     }
   });
-  // обработчик события для изменения эффектов изображения по клику
-  parentEffectElement.addEventListener('click', function (evt) {
-    var target = evt.target;
-    if (target.tagName.toLowerCase() === 'input') {
-      changeImageEffectHandler(target);
-    }
-  });
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
@@ -185,9 +119,9 @@
 
   // делаем настройки фильтра по движению ползунка
 
-  var effectLine = document.querySelector('.upload-effect-level');
+  var uploadLineVal = document.querySelector('.upload-effect-level-val');
 
-  var uploadLineVal = effectLine.querySelector('.upload-effect-level-val');
+  var effectLine = document.querySelector('.upload-effect-level');
 
   var uploadLevelLine = effectLine.querySelector('.upload-effect-level-line');
 
@@ -213,13 +147,13 @@
         left = sliderWidth;
       }
 
-      var filterValue = Math.round(left / sliderWidth * multiplier * 100) / 100;
+      var filterValue = Math.round(left / sliderWidth * window.multiplier * 100) / 100;
 
-      if (selectedEffect === 'brightness') {
+      if (window.selectedEffect === 'brightness') {
         filterValue += 1;
       }
 
-      pictureElement.style.filter = selectedEffect + '(' + filterValue + units + ')';
+      pictureElement.style.filter = window.selectedEffect + '(' + filterValue + window.units + ')';
 
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
