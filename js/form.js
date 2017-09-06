@@ -3,6 +3,10 @@
 (function () {
   // получам html элементы для работы с формой кадрирования
 
+  var MIN_VALUE = 25;
+
+  var MAX_VALUE = 100;
+
   var uploadImage = document.querySelector('#upload-select-image');
 
   var uploadFile = uploadImage.querySelector('.upload-image');
@@ -18,6 +22,10 @@
   var parentEffectElement = uploadOverlay.querySelector('.upload-effect-controls');
 
   var hashTags = uploadOverlay.querySelector('.upload-form-hashtags');
+
+  var scaleElement = uploadOverlay.querySelector('.upload-resize-controls-value');
+
+  var resizeControls = document.querySelector('.upload-resize-controls');
 
 
 // функция закрытия формы кадрирования
@@ -45,6 +53,16 @@
       }
     }
   };
+
+  var adjustScale = function (direction) {
+    var newValue = parseInt(scaleElement.value, 10) + 25 * direction;
+    if (newValue >= MIN_VALUE && newValue <= MAX_VALUE) {
+      scaleElement.value = newValue + '%';
+      pictureElement.style.transform = 'scale(' + newValue / 100 + ')';
+    }
+  };
+
+  window.initializeScale(resizeControls, adjustScale);
 
   /* функция проверки хеш-тегов
   * проверка поля хеш-тега на пустоту
