@@ -49,7 +49,7 @@
 
   var changeImageEffectHandler = function (effect) {
     pictureElement.classList.remove(options.currentEffect);
-    options.currentEffect = 'effect-' + effect.value;
+    options.currentEffect = 'effect-' + effect;
     pictureElement.classList.add(options.currentEffect);
     if (pictureElement.classList.contains('effect-none')) {
       effectLine.classList.add(window.utils.CLASS_HIDDEN);
@@ -60,7 +60,7 @@
     options.units = '';
     options.multiplier = 1;
 
-    switch (effect.value) {
+    switch (effect) {
       case 'chrome':
         options.selectedEffect = 'grayscale';
         break;
