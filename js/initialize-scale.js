@@ -8,13 +8,13 @@
 
   var resizeControls = document.querySelector('.upload-resize-controls');
 
-  window.initializeScale = function (callback) {
+  window.initializeScale = function (processedElement, callback) {
     resizeControls.addEventListener('click', function (evt) {
       var target = evt.target;
       if (target.classList.contains(reduceImageSize)) {
-        callback(-1);
+        callback(processedElement, -1);
       } else if (target.classList.contains(increaseImageSize)) {
-        callback(1);
+        callback(processedElement, 1);
       }
     });
   };

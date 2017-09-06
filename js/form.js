@@ -23,15 +23,15 @@
 
   var scaleElement = uploadOverlay.querySelector('.upload-resize-controls-value');
 
-  var adjustScale = function (direction) {
-    var newValue = parseInt(scaleElement.value, 10) + 25 * direction;
+  var adjustScale = function (processedElement, direction) {
+    var newValue = parseInt(processedElement.value, 10) + 25 * direction;
     if (newValue >= MIN_VALUE && newValue <= MAX_VALUE) {
-      scaleElement.value = newValue + '%';
+      processedElement.value = newValue + '%';
       pictureElement.style.transform = 'scale(' + newValue / 100 + ')';
     }
   };
 
-  window.initializeScale(adjustScale);
+  window.initializeScale(scaleElement, adjustScale);
 // функция закрытия формы кадрирования
 
   var closeFramingHandler = function () {
