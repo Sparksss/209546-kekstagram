@@ -23,6 +23,19 @@
 
   var scaleElement = uploadOverlay.querySelector('.upload-resize-controls-value');
 
+  var effectLine = document.querySelector('.upload-effect-level');
+
+  var uploadLineVal = effectLine.querySelector('.upload-effect-level-val');
+
+  var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
+
+  var options = {
+    currentEffect: null,
+    selectedEffect: 'none',
+    units: '',
+    multiplier: 0
+  };
+
   var adjustScale = function (processedElement, direction) {
     var newValue = parseInt(processedElement.value, 10) + 25 * direction;
     if (newValue >= MIN_VALUE && newValue <= MAX_VALUE) {
@@ -32,8 +45,48 @@
   };
 
   window.initializeScale(scaleElement, adjustScale);
-// функция закрытия формы кадрирования
+  effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
+  var changeImageEffectHandler = function (effect) {
+    pictureElement.classList.remove(options.currentEffect);
+    options.currentEffect = 'effect-' + effect.value;
+    pictureElement.classList.add(options.currentEffect);
+    if (pictureElement.classList.contains('effect-none')) {
+      effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    } else {
+      effectLine.classList.remove(window.utils.CLASS_HIDDEN);
+      uploadLineVal.style.width = '0%';
+    }
+    options.units = '';
+    options.multiplier = 1;
+
+    switch (effect.value) {
+      case 'chrome':
+        options.selectedEffect = 'grayscale';
+        break;
+      case 'sepia':
+        options.selectedEffect = 'sepia';
+        break;
+      case 'marvin':
+        options.selectedEffect = 'invert';
+        break;
+      case 'phobos':
+        options.selectedEffect = 'blur';
+        options.units = 'px';
+        options.multiplier = 10;
+        break;
+      case 'heat':
+        options.selectedEffect = 'brightness';
+        options.multiplier = 3;
+        break;
+    }
+    pictureElement.style.filter = 'none';
+    uploadPin.style.left = 0;
+  };
+
+  window.initializeFilters(changeImageEffectHandler);
+
+  // функция закрытия формы кадрирования
   var closeFramingHandler = function () {
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
@@ -133,13 +186,7 @@
 
   // делаем настройки фильтра по движению ползунка
 
-  var uploadLineVal = document.querySelector('.upload-effect-level-val');
-
-  var effectLine = document.querySelector('.upload-effect-level');
-
   var uploadLevelLine = effectLine.querySelector('.upload-effect-level-line');
-
-  var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
   uploadPin.addEventListener('mousedown', function (evt) {
@@ -161,13 +208,13 @@
         left = sliderWidth;
       }
 
-      var filterValue = Math.round(left / sliderWidth * window.multiplier * 100) / 100;
+      var filterValue = Math.round(left / sliderWidth * options.multiplier * 100) / 100;
 
-      if (window.selectedEffect === 'brightness') {
+      if (options.selectedEffect === 'brightness') {
         filterValue += 1;
       }
 
-      pictureElement.style.filter = window.selectedEffect + '(' + filterValue + window.units + ')';
+      pictureElement.style.filter = options.selectedEffect + '(' + filterValue + options.units + ')';
 
       uploadPin.style.left = left + 'px';
       uploadLineVal.style.width = left + 'px';
