@@ -29,6 +29,4 @@
     }
   };
 
-  window.backend.load('https://1510.dump.academy/kekstagram/data');
-
 })();
