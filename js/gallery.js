@@ -15,7 +15,7 @@
     }
   };
 
-   window.showError = function (status, text) {
+  window.showError = function (status, text) {
     var statusError = '';
     switch (status) {
       case 400:
@@ -30,18 +30,10 @@
 
       default:
         statusError = 'Неизвестный статус: ' + status + ' ' + text;
-
-        var errorMassage = document.createElement('div');
-        errorMassage.style.margin = '50% 50%';
-        errorMassage.style.width = '300px';
-        errorMassage.style.height = '300px';
-        errorMassage.style.backgroundColor = 'red';
-        errorMassage.textContent = statusError;
-
-        document.insertBefore('afterbegin', errorMassage);
-
-
     }
+    var massage = document.querySelector('.upload-message');
+    massage.querySelector('.upload-message-container').textContent = statusError;
+    massage.classList.remove(window.utils.CLASS_HIDDEN);
   };
   window.backend.load(loadGallery, window.showError);
 })();

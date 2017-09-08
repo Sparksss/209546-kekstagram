@@ -38,12 +38,19 @@
 
       var xhr = new XMLHttpRequest();
 
+      xhr.addEventListener('load', function () {
+        switch (xhr.status) {
+          case 200:
+            onLoad();
+            break;
+          default:
+            onError(xhr.status, xhr.statusText);
+        }
+      });
+
       xhr.open('POST', url);
 
       xhr.send(data);
-
-      onLoad();
     }
   };
-//Cool, Nice job. Your professional!
 })();
