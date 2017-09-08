@@ -7,13 +7,13 @@
 
   var MAX_VALUE = 100;
 
-  var uploadImage = document.querySelector('#upload-select-image');
+  var uploadForm = document.querySelector('#upload-select-image');
 
-  var uploadFile = uploadImage.querySelector('.upload-image');
+  var uploadFile = uploadForm.querySelector('.upload-image');
 
-  var uploadOverlay = uploadImage.querySelector('.upload-overlay');
+  var uploadOverlay = uploadForm.querySelector('.upload-overlay');
 
-  var downloadForm = uploadImage.querySelector('.upload-image');
+  var downloadForm = uploadForm.querySelector('.upload-image');
 
   var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
@@ -228,6 +228,11 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  });
+
+  uploadForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.showError);
+    evt.preventDefault();
   });
 
 })();
