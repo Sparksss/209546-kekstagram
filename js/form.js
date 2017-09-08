@@ -90,6 +90,13 @@
   var closeFramingHandler = function () {
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
+    effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    hashTags.textContent = '';
+    uploadOverlay.querySelector('.upload-form-description').value = '';
+    uploadOverlay.querySelector('#upload-effect-none').checked = true;
+    uploadPin.style.left = '0px';
+    uploadLineVal.style.width = '0%';
+    pictureElement.style.filter = 'none';
   };
 
 // функция открытия формы кадрирования
