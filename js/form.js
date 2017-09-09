@@ -90,6 +90,10 @@
   var closeFramingHandler = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
+    pictureElement.style.filter = 'none';
+    effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    uploadPin.style.left = 0;
+    uploadLineVal.style.width = 0;
     uploadForm.reset();
   };
 
