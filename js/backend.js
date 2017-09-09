@@ -2,10 +2,32 @@
 
 (function () {
   window.backend = {
+    showError: function (status, text) {
+      var statusError = '';
+      switch (status) {
+        case 400:
+          statusError = 'Неверный запрос';
+          break;
+        case 401:
+          statusError = 'Пользователь не авторизован';
+          break;
+        case 404:
+          statusError = 'Ничего не найдено';
+          break;
+
+        default:
+          statusError = 'Неизвестный статус: ' + status + ' ' + text;
+      }
+      var massage = document.querySelector('.upload-message');
+      massage.querySelector('.upload-message-container').textContent = statusError;
+      massage.classList.remove(window.utils.CLASS_HIDDEN);
+    },
     load: function (onLoad, onError) {
       var url = 'https://1510.dump.academy/kekstagram/data';
 
       var xhr = new XMLHttpRequest();
+
+      xhr.timeout = 3000;
 
       xhr.responseType = 'json';
 
@@ -26,9 +48,6 @@
       xhr.addEventListener('timeout', function () {
         onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       });
-
-      xhr.timeout = 3000;
-
       xhr.open('GET', url);
 
       xhr.send();

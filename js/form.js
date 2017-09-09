@@ -93,7 +93,7 @@
     effectLine.classList.add(window.utils.CLASS_HIDDEN);
     hashTags.textContent = '';
     uploadOverlay.querySelector('.upload-form-description').value = '';
-    uploadOverlay.querySelector('#upload-effect-none').checked = true;
+    uploadOverlay.querySelector('#upload-effect-none').check = true;
     uploadPin.style.left = '0px';
     uploadLineVal.style.width = '0%';
     pictureElement.style.filter = 'none';
@@ -238,7 +238,7 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.showError);
+    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.backend.showError);
     evt.preventDefault();
   });
 
