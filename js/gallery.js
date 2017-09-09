@@ -12,6 +12,8 @@
     for (var i = 0; i < lengthPictureCollection; i++) {
       window.preview.addClickHandler(pictures[i], photoCollection[i]);
     }
+    var filters = document.querySelector('.filters');
+    filters.classList.remove(window.utils.CLASS_HIDDEN);
   };
   window.backend.load(loadGallery, window.backend.showError);
 })();
