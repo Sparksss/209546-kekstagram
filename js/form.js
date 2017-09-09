@@ -7,13 +7,13 @@
 
   var MAX_VALUE = 100;
 
-  var uploadImage = document.querySelector('#upload-select-image');
+  var uploadForm = document.querySelector('#upload-select-image');
 
-  var uploadFile = uploadImage.querySelector('.upload-image');
+  var uploadFile = uploadForm.querySelector('.upload-image');
 
-  var uploadOverlay = uploadImage.querySelector('.upload-overlay');
+  var uploadOverlay = uploadForm.querySelector('.upload-overlay');
 
-  var downloadForm = uploadImage.querySelector('.upload-image');
+  var downloadForm = uploadForm.querySelector('.upload-image');
 
   var cancelFraming = uploadOverlay.querySelector('.upload-form-cancel');
 
@@ -88,8 +88,13 @@
 
   // функция закрытия формы кадрирования
   var closeFramingHandler = function () {
-    downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
+    downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
+    pictureElement.style.filter = 'none';
+    effectLine.classList.add(window.utils.CLASS_HIDDEN);
+    uploadPin.style.left = 0;
+    uploadLineVal.style.width = 0;
+    uploadForm.reset();
   };
 
 // функция открытия формы кадрирования
@@ -228,6 +233,11 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  });
+
+  uploadForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.backend.showError);
+    evt.preventDefault();
   });
 
 })();

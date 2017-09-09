@@ -5,10 +5,10 @@
   var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
   var checkCloseGallery = 'gallery-overlay-close';
   window.preview = {
-    addClickHandler: function (picture, i) {
+    addClickHandler: function (picture, element) {
       picture.addEventListener('click', function (evt) {
         evt.preventDefault();
-        onClickOpenGallery(i);
+        onClickOpenGallery(element);
       });
     }
   };
@@ -20,8 +20,8 @@
   var closePopup = function () {
     galleryOverlay.classList.add(window.utils.CLASS_HIDDEN);
   };
-  var onClickOpenGallery = function (index) {
-    showPhoto(window.photoGallery[index]);
+  var onClickOpenGallery = function (photo) {
+    showPhoto(photo);
     galleryOverlay.classList.remove(window.utils.CLASS_HIDDEN);
   };
   document.addEventListener('keydown', function (evt) {
