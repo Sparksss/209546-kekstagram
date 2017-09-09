@@ -60,6 +60,7 @@
       xhr.addEventListener('load', function () {
         switch (xhr.status) {
           case 200:
+            debugger;
             onLoad();
             break;
           default:

@@ -91,9 +91,6 @@
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     effectLine.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
-    uploadOverlay.querySelector('#upload-effect-none').check = true;
-    uploadPin.style.left = '0px';
-    uploadLineVal.style.width = '0%';
     pictureElement.style.filter = 'none';
     uploadForm.reset();
   };
