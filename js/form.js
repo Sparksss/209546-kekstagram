@@ -89,7 +89,6 @@
   // функция закрытия формы кадрирования
   var closeFramingHandler = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
-    effectLine.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
     uploadForm.reset();
