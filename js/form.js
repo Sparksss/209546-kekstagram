@@ -88,15 +88,14 @@
 
   // функция закрытия формы кадрирования
   var closeFramingHandler = function () {
-    downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     effectLine.classList.add(window.utils.CLASS_HIDDEN);
-    hashTags.textContent = '';
-    uploadOverlay.querySelector('.upload-form-description').value = '';
+    downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     uploadOverlay.querySelector('#upload-effect-none').check = true;
     uploadPin.style.left = '0px';
     uploadLineVal.style.width = '0%';
     pictureElement.style.filter = 'none';
+    uploadForm.reset();
   };
 
 // функция открытия формы кадрирования
