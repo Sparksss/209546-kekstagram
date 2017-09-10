@@ -5,7 +5,6 @@
   var croppingForm = document.querySelector('.upload-overlay');
   croppingForm.classList.add(window.utils.CLASS_HIDDEN);
   var filters = document.querySelector('.filters');
-  filters.classList.remove(window.utils.CLASS_HIDDEN);
 
   var loadGallery = function (photoCollection) {
     similarPictureElement.appendChild(window.pictures.getRenderPhotos(photoCollection));
@@ -15,6 +14,7 @@
         window.preview.onClickOpenGallery(evt.target.parentNode);
       }
     });
+    filters.classList.remove(window.utils.CLASS_HIDDEN);
     filters.querySelector('#filter-popular').addEventListener('click', function () {
       photoCollection.sort(function (left, right) {
         if (left.likes < right.likes) {
