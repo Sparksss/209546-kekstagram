@@ -22,7 +22,7 @@
       window.utils.debounce(lastTimeout);
     });
     var renderFilters = function (value) {
-      var elementPhoto = window.pictures.getRenderPhotos;
+      var elementPhoto = null;
       switch (value) {
         case 'popular':
           copyCollection.sort(function (left, right) {
@@ -54,13 +54,13 @@
       similarPictureElement.innerHTML = '';
       switch (value) {
         case 'recommend':
-          similarPictureElement.appendChild(elementPhoto(photoCollection));
+          elementPhoto = window.pictures.getRenderPhotos(photoCollection);
           break;
         default:
-          similarPictureElement.appendChild(elementPhoto(copyCollection));
+          elementPhoto = window.pictures.getRenderPhotos(copyCollection);
           break;
       }
-
+      similarPictureElement.appendChild(elementPhoto);
     };
 
   };
