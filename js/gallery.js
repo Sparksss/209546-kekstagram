@@ -16,8 +16,7 @@
     });
     filters.classList.remove(window.utils.CLASS_HIDDEN);
     filters.addEventListener('change', function (evt) {
-      var lastTimeout = setTimeout(renderFilters(evt.target.value), window.utils.DEBOUNCE_INTERVAL);
-      window.utils.debounce(lastTimeout);
+      window.utils.debounce(renderFilters);
     });
     var renderFilters = function (value) {
       var copyCollection = photoCollection.slice(0);
