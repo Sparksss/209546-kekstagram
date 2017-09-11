@@ -18,7 +18,12 @@
     var copyCollection = [];
     copyCollection = photoCollection.slice(0);
     filters.addEventListener('change', function (evt) {
-      switch (evt.target.value) {
+      var lastTimeout = setTimeout(renderFilters(evt.target.value), 300);
+      window.utils.debounce(lastTimeout);
+    });
+    var renderFilters = function (value) {
+      var elementPhoto = window.pictures.getRenderPhotos;
+      switch (value) {
         case 'popular':
           copyCollection.sort(function (left, right) {
             if (left.likes < right.likes) {
@@ -42,21 +47,22 @@
           });
           break;
         case 'random':
-          var randomCollection = [];
-          for (var l = 0; l < photoCollection.length; l++) {
-            randomCollection.push(photoCollection[window.utils.getRandomNumber(0, 26)]);
-          }
+          copyCollection.sort(function () {
+            return 0.5 - Math.random();
+          });
       }
       similarPictureElement.innerHTML = '';
-      if (evt.target.value === 'recommend') {
-        similarPictureElement.appendChild(window.pictures.getRenderPhotos(photoCollection));
-      } else if (evt.target.value === 'random') {
-        similarPictureElement.appendChild(window.pictures.getRenderPhotos(randomCollection));
-      } else {
-        similarPictureElement.appendChild(window.pictures.getRenderPhotos(copyCollection));
+      switch (value) {
+        case 'recommend':
+          similarPictureElement.appendChild(elementPhoto(photoCollection));
+          break;
+        default:
+          similarPictureElement.appendChild(elementPhoto(copyCollection));
+          break;
       }
-    }
-    );
+
+    };
+
   };
   window.backend.load(loadGallery, window.backend.showError);
 })();
