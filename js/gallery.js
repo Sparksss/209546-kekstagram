@@ -49,9 +49,6 @@
             return 0.5 - Math.random();
           });
           break;
-        default:
-          copyCollection = photoCollection;
-          break;
       }
       similarPictureElement.innerHTML = '';
       similarPictureElement.appendChild(window.pictures.getRenderPhotos(copyCollection));
