@@ -15,32 +15,48 @@
       }
     });
     filters.classList.remove(window.utils.CLASS_HIDDEN);
+    var copyCollection = [];
+    copyCollection = photoCollection.slice(0);
     filters.addEventListener('change', function (evt) {
-      if (evt.target.value === 'popular') {
-        photoCollection.sort(function (left, right) {
-          if (left.likes < right.likes) {
-            return 1;
-          } else if (left.likes > right.likes) {
-            return -1;
-          } else {
-            return 0;
+      switch (evt.target.value) {
+        case 'popular':
+          copyCollection.sort(function (left, right) {
+            if (left.likes < right.likes) {
+              return 1;
+            } else if (left.likes > right.likes) {
+              return -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case 'discussed':
+          copyCollection.sort(function (left, right) {
+            if (left.comments.length < right.comments.length) {
+              return 1;
+            } else if (left.comments.length > right.comments.length) {
+              return -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case 'random':
+          var randomCollection = [];
+          for (var l = 0; l < photoCollection.length; l++) {
+            randomCollection.push(photoCollection[window.utils.getRandomNumber(0, 26)]);
           }
-
-        });
-      } else if (evt.target.value === 'discussed') {
-        photoCollection.sort(function (left, right) {
-          if (left.comments.length < right.comments.length) {
-            return 1;
-          } else if (left.comments.length > right.comments.length) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
       }
       similarPictureElement.innerHTML = '';
-      similarPictureElement.appendChild(window.pictures.getRenderPhotos(photoCollection));
-    });
+      if (evt.target.value === 'recommend') {
+        similarPictureElement.appendChild(window.pictures.getRenderPhotos(photoCollection));
+      } else if (evt.target.value === 'random') {
+        similarPictureElement.appendChild(window.pictures.getRenderPhotos(randomCollection));
+      } else {
+        similarPictureElement.appendChild(window.pictures.getRenderPhotos(copyCollection));
+      }
+    }
+    );
   };
   window.backend.load(loadGallery, window.backend.showError);
 })();
