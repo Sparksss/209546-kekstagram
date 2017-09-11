@@ -16,6 +16,9 @@
     });
     filters.classList.remove(window.utils.CLASS_HIDDEN);
     filters.addEventListener('change', function (evt) {
+      window.utils.debounce(function () {
+        renderFilters(evt.target.value);
+      });
     });
     var renderFilters = function (value) {
       var copyCollection = photoCollection.slice(0);
@@ -51,7 +54,7 @@
       similarPictureElement.innerHTML = '';
       similarPictureElement.appendChild(window.pictures.getRenderPhotos(copyCollection));
     };
-    window.utils.debounce(renderFilters);
+
   };
   window.backend.load(loadGallery, window.backend.showError);
 })();
