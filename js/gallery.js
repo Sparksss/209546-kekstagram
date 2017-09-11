@@ -49,7 +49,7 @@
             return 0.5 - Math.random();
           });
           break;
-        case 'recommend':
+        default:
           copyCollection = photoCollection;
           break;
       }
