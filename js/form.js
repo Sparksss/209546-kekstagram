@@ -29,6 +29,8 @@
 
   var uploadPin = effectLine.querySelector('.upload-effect-level-pin');
 
+  var fileChooser = uploadForm.querySelector('#upload-file');
+
   var options = {
     currentEffect: null,
     selectedEffect: 'none',
@@ -238,6 +240,23 @@
   uploadForm.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(uploadForm), closeFramingHandler, window.backend.showError);
     evt.preventDefault();
+  });
+
+  fileChooser.addEventListener('change', function () {
+    var file = fileChooser.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = window.utils.FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+    if (matches) {
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        pictureElement.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
   });
 
 })();
