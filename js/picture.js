@@ -13,11 +13,10 @@
   var pictureTemplate = document.querySelector('#picture-template').content;
   window.pictures = {
     getRenderPhotos: function (photoCollection) {
-      var photoLength = photoCollection.length;
       var fragment = document.createDocumentFragment();
-      for (var i = 0; i < photoLength; i++) {
-        fragment.appendChild(getRenderPictures(photoCollection[i]));
-      }
+      photoCollection.forEach(function (photo) {
+        fragment.appendChild(getRenderPictures(photo));
+      });
       return fragment;
     }
   };
