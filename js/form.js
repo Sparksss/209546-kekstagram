@@ -104,6 +104,7 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
+
   };
 
 // функция проверки хеш-тегов на идентичность
@@ -129,7 +130,7 @@
     var maxHashTags = 5;
     var maxLengthTag = 20;
     var tagsFieldValue = hashTags.value;
-    var listHashTag = tagsFieldValue.match(/\#[\S]+/g);
+    var listHashTags = tagsFieldValue.match(/\#[\S]+/g);
 
     hashTags.setCustomValidity('');
 
@@ -137,21 +138,21 @@
       return;
     }
 
-    if (listHashTag === null) {
+    if (listHashTags === null) {
       hashTags.setCustomValidity('Первый символ должен быть решеткой');
     } else {
-      var lengthListHashTags = listHashTag.length;
+      var lengthListHashTags = listHashTags.length;
       if (lengthListHashTags > maxHashTags) {
         hashTags.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
       }
 
       for (var l = 0; l < lengthListHashTags; l++) {
-        if (listHashTag[l].length > maxLengthTag) {
+        if (listHashTags[l].length > maxLengthTag) {
           hashTags.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
           break;
         }
         if (lengthListHashTags > 1) {
-          checkForTheSameWord(listHashTag, l);
+          checkForTheSameWord(listHashTags, l);
         }
       }
     }
@@ -159,15 +160,10 @@
 
 // обработчик событий для открытия формы кадрирования
 
-  uploadFile.addEventListener('change', function () {
-    onInputOpenFramingForm();
-  });
+  uploadFile.addEventListener('change', onInputOpenFramingForm);
 
 // обработчик события для закрытия формы кадрирования
-
-  cancelFraming.addEventListener('click', function () {
-    onCloseFramingForm();
-  });
+  cancelFraming.addEventListener('click', onCloseFramingForm);
 
 // обработчик события для закрытия формы кадрирования на клавишу ESC
 
@@ -178,12 +174,6 @@
   });
 
 // обработчик собыитя для закрытия формы кадрирования на клавишу ENTER если крестик в фокусе
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
-      onCloseFramingForm();
-    }
-  });
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
@@ -238,8 +228,8 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
+      window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
     evt.preventDefault();
-    window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
   });
 
   fileChooser.addEventListener('change', function () {
