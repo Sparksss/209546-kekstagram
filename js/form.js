@@ -129,7 +129,7 @@
     var maxHashTags = 5;
     var maxLengthTag = 21;
     var tagsFieldValue = hashTags.value;
-    var listHashTag = tagsFieldValue.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
+    var listHashTag = tagsFieldValue.match(/\#[\S]+/g);
 
     hashTags.setCustomValidity('');
 

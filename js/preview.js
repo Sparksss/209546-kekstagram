@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
+  var CHECK_CLOSE_GALLERY = 'gallery-overlay-close';
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var closeGallery = galleryOverlay.querySelector('.gallery-overlay-close');
-  var checkCloseGallery = 'gallery-overlay-close';
   window.preview = {
     onClickOpenGallery: function (photo) {
       showPhoto(photo);
@@ -24,7 +24,7 @@
     }
   });
   galleryOverlay.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(checkCloseGallery) && evt.keyCode === window.utils.ENTER_KEYCODE) {
+    if (evt.target.classList.contains(CHECK_CLOSE_GALLERY) && evt.keyCode === window.utils.ENTER_KEYCODE) {
       closePopup();
     }
   });

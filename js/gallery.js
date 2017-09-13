@@ -21,10 +21,10 @@
       });
     });
     var renderFilters = function (value) {
-      var copyCollection = photoCollection.slice(0);
+      var copiesOfCollections = photoCollection.slice(0);
       switch (value) {
         case 'popular':
-          copyCollection.sort(function (left, right) {
+          copiesOfCollections.sort(function (left, right) {
             if (left.likes < right.likes) {
               return 1;
             } else if (left.likes > right.likes) {
@@ -35,7 +35,7 @@
           });
           break;
         case 'discussed':
-          copyCollection.sort(function (left, right) {
+          copiesOfCollections.sort(function (left, right) {
             if (left.comments.length < right.comments.length) {
               return 1;
             } else if (left.comments.length > right.comments.length) {
@@ -46,13 +46,13 @@
           });
           break;
         case 'random':
-          copyCollection.sort(function () {
+          copiesOfCollections.sort(function () {
             return 0.5 - Math.random();
           });
           break;
       }
       similarPictureElement.innerHTML = '';
-      similarPictureElement.appendChild(window.pictures.getRenderPhotos(copyCollection));
+      similarPictureElement.appendChild(window.pictures.getRenderPhotos(copiesOfCollections));
     };
 
   };
