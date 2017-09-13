@@ -228,7 +228,7 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
-      window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
+    window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
     evt.preventDefault();
   });
 
