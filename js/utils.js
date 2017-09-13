@@ -9,11 +9,11 @@
     ENTER_KEYCODE: 13,
     DEBOUNCE_INTERVAL: 300,
     FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png'],
-    debounce: function (fun) {
+    debounce: function (callback) {
       if (lastTimeout) {
         window.clearTimeout(lastTimeout);
       }
-      lastTimeout = window.setTimeout(fun, this.DEBOUNCE_INTERVAL);
+      lastTimeout = window.setTimeout(callback, this.DEBOUNCE_INTERVAL);
     }
   };
 })();

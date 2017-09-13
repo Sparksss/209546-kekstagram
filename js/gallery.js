@@ -6,8 +6,8 @@
   croppingForm.classList.add(window.utils.CLASS_HIDDEN);
   var filters = document.querySelector('.filters');
 
-  var loadGallery = function (photoCollection) {
-    similarPictureElement.appendChild(window.pictures.getRenderPhotos(photoCollection));
+  var loadGallery = function (photosDataList) {
+    similarPictureElement.appendChild(window.pictures.getRenderPhotos(photosDataList));
     similarPictureElement.addEventListener('click', function (evt) {
       evt.preventDefault();
       if (evt.target.parentNode.classList.contains('picture')) {
@@ -21,7 +21,7 @@
       });
     });
     var renderFilters = function (value) {
-      var copiesOfCollections = photoCollection.slice(0);
+      var copiesOfCollections = photosDataList.slice(0);
       switch (value) {
         case 'popular':
           copiesOfCollections.sort(function (left, right) {

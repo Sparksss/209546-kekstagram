@@ -89,7 +89,7 @@
   window.initializeFilters(changeImageEffectHandler);
 
   // функция закрытия формы кадрирования
-  var closeFramingHandler = function () {
+  var onCloseFramingForm = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
@@ -127,7 +127,7 @@
 
   var checkHashTagsHandler = function () {
     var maxHashTags = 5;
-    var maxLengthTag = 21;
+    var maxLengthTag = 20;
     var tagsFieldValue = hashTags.value;
     var listHashTag = tagsFieldValue.match(/\#[\S]+/g);
 
@@ -166,14 +166,14 @@
 // обработчик события для закрытия формы кадрирования
 
   cancelFraming.addEventListener('click', function () {
-    closeFramingHandler();
+    onCloseFramingForm();
   });
 
 // обработчик события для закрытия формы кадрирования на клавишу ESC
 
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
-      closeFramingHandler();
+      onCloseFramingForm();
     }
   });
 
@@ -181,7 +181,7 @@
 
   document.addEventListener('keydown', function (evt) {
     if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
-      closeFramingHandler();
+      onCloseFramingForm();
     }
   });
 
@@ -238,8 +238,8 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.backend.showError);
     evt.preventDefault();
+    window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
   });
 
   fileChooser.addEventListener('change', function () {
