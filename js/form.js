@@ -49,7 +49,7 @@
   window.initializeScale(scaleElement, adjustScale);
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
-  var changeImageEffectHandler = function (effect) {
+  var onChangeImageEffect = function (effect) {
     pictureElement.classList.remove(options.currentEffect);
     options.currentEffect = 'effect-' + effect;
     pictureElement.classList.add(options.currentEffect);
@@ -86,15 +86,15 @@
     uploadPin.style.left = 0;
   };
 
-  window.initializeFilters(changeImageEffectHandler);
+  window.initializeFilters(onChangeImageEffect);
 
-  var isEscPress = function (evt) {
+  var onEscPress = function (evt) {
     if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
       onCloseFramingForm();
     }
   };
 
-  var isEnterPress = function (evt) {
+  var onEnterPress = function (evt) {
     if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
       onCloseFramingForm();
     }
@@ -108,8 +108,8 @@
     uploadPin.style.left = 0;
     uploadLineVal.style.width = 0;
     uploadForm.reset();
-    document.removeEventListener('keydown', isEscPress);
-    document.removeEventListener('keydown', isEnterPress);
+    document.removeEventListener('keydown', onEscPress);
+    document.removeEventListener('keydown', onEnterPress);
   };
 
 // функция открытия формы кадрирования
@@ -117,8 +117,8 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
-    document.addEventListener('keydown', isEscPress);
-    document.addEventListener('keydown', isEnterPress);
+    document.addEventListener('keydown', onEscPress);
+    document.addEventListener('keydown', onEnterPress);
 
   };
 
@@ -141,7 +141,7 @@
   *  проверка каждого хеш-тега чтобы длинна не превышала 20 символов
   */
 
-  var checkHashTagsHandler = function () {
+  var onCheckHashTags = function () {
     var maxHashTags = 5;
     var maxLengthTag = 20;
     var tagsFieldValue = hashTags.value;
@@ -184,7 +184,7 @@
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
   hashTags.addEventListener('input', function () {
-    checkHashTagsHandler();
+    onCheckHashTags();
   });
 
   // делаем настройки фильтра по движению ползунка

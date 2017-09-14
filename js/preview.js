@@ -8,7 +8,7 @@
     onClickOpenGallery: function (photo) {
       showPhoto(photo);
       galleryOverlay.classList.remove(window.utils.CLASS_HIDDEN);
-      document.addEventListener('keydown', isEscPress);
+      document.addEventListener('keydown', onEscPress);
     }
   };
   var showPhoto = function (pictureElement) {
@@ -17,7 +17,7 @@
     galleryOverlay.querySelector('.comments-count').textContent = pictureElement.querySelector('.picture-comments').textContent;
   };
 
-  var isEscPress = function (evt) {
+  var onEscPress = function (evt) {
     if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
       closePopup();
     }
@@ -25,7 +25,7 @@
 
   var closePopup = function () {
     galleryOverlay.classList.add(window.utils.CLASS_HIDDEN);
-    document.removeEventListener('keydown', isEscPress);
+    document.removeEventListener('keydown', onEscPress);
   };
 
   galleryOverlay.addEventListener('keydown', function (evt) {
