@@ -8,7 +8,7 @@
     ENTER_KEYCODE: 13,
     DEBOUNCE_INTERVAL: 300,
     FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png'],
-    debounce: function (callback) {
+    debouncing: function (callback) {
       if (lastTimeout) {
         window.clearTimeout(lastTimeout);
       }
