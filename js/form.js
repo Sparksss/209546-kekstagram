@@ -89,7 +89,7 @@
   window.initializeFilters(changeImageEffectHandler);
 
   // функция закрытия формы кадрирования
-  var onCloseFramingForm = function () {
+  window.onCloseFramingForm = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
@@ -97,6 +97,8 @@
     uploadPin.style.left = 0;
     uploadLineVal.style.width = 0;
     uploadForm.reset();
+    document.removeEventListener('keydown', window.utils.isEscPress);
+    document.removeEventListener('keydown', window.utils.isEnterPress);
   };
 
 // функция открытия формы кадрирования
@@ -104,6 +106,8 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
+    document.addEventListener('keydown', window.utils.isEscPress);
+    document.addEventListener('keydown', window.utils.isEnterPress);
 
   };
 
@@ -164,17 +168,7 @@
   uploadFile.addEventListener('change', onInputOpenFramingForm);
 
 // обработчик события для закрытия формы кадрирования
-  cancelFraming.addEventListener('click', onCloseFramingForm);
-
-// обработчик события для закрытия формы кадрирования на клавишу ESC
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
-      onCloseFramingForm();
-    }
-  });
-
-// обработчик собыитя для закрытия формы кадрирования на клавишу ENTER если крестик в фокусе
+  cancelFraming.addEventListener('click', window.onCloseFramingForm);
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
