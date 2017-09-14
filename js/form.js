@@ -31,6 +31,8 @@
 
   var fileChooser = uploadForm.querySelector('#upload-file');
 
+  var submitButton = uploadForm.querySelector('#upload-submit');
+
   var options = {
     currentEffect: null,
     selectedEffect: 'none',
@@ -49,7 +51,7 @@
   window.initializeScale(scaleElement, adjustScale);
   effectLine.classList.add(window.utils.CLASS_HIDDEN);
 
-  var changeImageEffectHandler = function (effect) {
+  var onChangeImageEffect = function (effect) {
     pictureElement.classList.remove(options.currentEffect);
     options.currentEffect = 'effect-' + effect;
     pictureElement.classList.add(options.currentEffect);
@@ -86,10 +88,21 @@
     uploadPin.style.left = 0;
   };
 
-  window.initializeFilters(changeImageEffectHandler);
+  window.initializeFilters(onChangeImageEffect);
 
+  var onEscPress = function (evt) {
+    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
+      closeFramingForm();
+    }
+  };
+
+  var onEnterPress = function (evt) {
+    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
+      closeFramingForm();
+    }
+  };
   // функция закрытия формы кадрирования
-  var closeFramingHandler = function () {
+  var closeFramingForm = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
@@ -97,6 +110,9 @@
     uploadPin.style.left = 0;
     uploadLineVal.style.width = 0;
     uploadForm.reset();
+    submitButton.disabled = false;
+    document.removeEventListener('keydown', onEscPress);
+    document.removeEventListener('keydown', onEnterPress);
   };
 
 // функция открытия формы кадрирования
@@ -104,14 +120,17 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
+    document.addEventListener('keydown', onEscPress);
+    document.addEventListener('keydown', onEnterPress);
+
   };
 
 // функция проверки хеш-тегов на идентичность
 
-  var checkForTheSameWord = function (listTags, index) {
-    var lengthListTags = listTags.length;
+  var checkForTheSameWord = function (tags, index) {
+    var lengthListTags = tags.length;
     for (var j = 1; j < lengthListTags; j++) {
-      if (listTags[j] === listTags[index] && j !== index) {
+      if (tags[j] === tags[index] && j !== index) {
         hashTags.setCustomValidity('Теги не должны повторяться!');
         break;
       }
@@ -125,11 +144,11 @@
   *  проверка каждого хеш-тега чтобы длинна не превышала 20 символов
   */
 
-  var checkHashTagsHandler = function () {
+  var checkHashTags = function () {
     var maxHashTags = 5;
-    var maxLengthTag = 21;
+    var maxLengthTag = 20;
     var tagsFieldValue = hashTags.value;
-    var listHashTag = tagsFieldValue.match(/\#[a-zA-Zа-яА-Я0-9\-]+/g);
+    var listHashTags = tagsFieldValue.match(/\#[\S]+/g);
 
     hashTags.setCustomValidity('');
 
@@ -137,21 +156,22 @@
       return;
     }
 
-    if (listHashTag === null) {
+    if (listHashTags === null) {
       hashTags.setCustomValidity('Первый символ должен быть решеткой');
     } else {
-      var lengthListHashTags = listHashTag.length;
+      var lengthListHashTags = listHashTags.length;
       if (lengthListHashTags > maxHashTags) {
         hashTags.setCustomValidity('Нелья добавить больше 5 хеш-тегов');
       }
 
       for (var l = 0; l < lengthListHashTags; l++) {
-        if (listHashTag[l].length > maxLengthTag) {
+        if (listHashTags[l].length > maxLengthTag) {
           hashTags.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
           break;
         }
+
         if (lengthListHashTags > 1) {
-          checkForTheSameWord(listHashTag, l);
+          checkForTheSameWord(listHashTags, l);
         }
       }
     }
@@ -159,36 +179,15 @@
 
 // обработчик событий для открытия формы кадрирования
 
-  uploadFile.addEventListener('change', function () {
-    onInputOpenFramingForm();
-  });
+  uploadFile.addEventListener('change', onInputOpenFramingForm);
 
 // обработчик события для закрытия формы кадрирования
-
-  cancelFraming.addEventListener('click', function () {
-    closeFramingHandler();
-  });
-
-// обработчик события для закрытия формы кадрирования на клавишу ESC
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
-      closeFramingHandler();
-    }
-  });
-
-// обработчик собыитя для закрытия формы кадрирования на клавишу ENTER если крестик в фокусе
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
-      closeFramingHandler();
-    }
-  });
+  cancelFraming.addEventListener('click', closeFramingForm);
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
   hashTags.addEventListener('input', function () {
-    checkHashTagsHandler();
+    checkHashTags();
   });
 
   // делаем настройки фильтра по движению ползунка
@@ -238,7 +237,9 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(uploadForm), closeFramingHandler, window.backend.showError);
+    hashTags.value = hashTags.value.trim();
+    submitButton.disabled = true;
+    window.backend.save(new FormData(uploadForm), closeFramingForm, window.backend.showError);
     evt.preventDefault();
   });
 
