@@ -179,7 +179,7 @@
   uploadFile.addEventListener('change', onInputOpenFramingForm);
 
 // обработчик события для закрытия формы кадрирования
-  cancelFraming.addEventListener('click', window.onCloseFramingForm);
+  cancelFraming.addEventListener('click', onCloseFramingForm);
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
