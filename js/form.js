@@ -92,17 +92,17 @@
 
   var onEscPress = function (evt) {
     if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
-      onCloseFramingForm();
+      closeFramingForm();
     }
   };
 
   var onEnterPress = function (evt) {
     if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
-      onCloseFramingForm();
+      closeFramingForm();
     }
   };
   // функция закрытия формы кадрирования
-  var onCloseFramingForm = function () {
+  var closeFramingForm = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
@@ -144,7 +144,7 @@
   *  проверка каждого хеш-тега чтобы длинна не превышала 20 символов
   */
 
-  var onCheckHashTags = function () {
+  var checkHashTags = function () {
     var maxHashTags = 5;
     var maxLengthTag = 20;
     var tagsFieldValue = hashTags.value;
@@ -182,12 +182,12 @@
   uploadFile.addEventListener('change', onInputOpenFramingForm);
 
 // обработчик события для закрытия формы кадрирования
-  cancelFraming.addEventListener('click', onCloseFramingForm);
+  cancelFraming.addEventListener('click', closeFramingForm);
 
 // обработчик события  для  запуска проверки хеш-тегов если изменяетя значение в input
 
   hashTags.addEventListener('input', function () {
-    onCheckHashTags();
+    checkHashTags();
   });
 
   // делаем настройки фильтра по движению ползунка
@@ -239,7 +239,7 @@
   uploadForm.addEventListener('submit', function (evt) {
     hashTags.value = hashTags.value.trim();
     submitButton.disabled = true;
-    window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
+    window.backend.save(new FormData(uploadForm), closeFramingForm, window.backend.showError);
     evt.preventDefault();
   });
 
