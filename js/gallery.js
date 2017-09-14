@@ -16,7 +16,7 @@
     });
     filters.classList.remove(window.utils.CLASS_HIDDEN);
     filters.addEventListener('change', function (evt) {
-      window.utils.debounce(function () {
+      window.utils.debouncing(function () {
         renderFilters(evt.target.value);
       });
     });
