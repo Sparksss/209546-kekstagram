@@ -8,6 +8,7 @@
     onClickOpenGallery: function (photo) {
       showPhoto(photo);
       galleryOverlay.classList.remove(window.utils.CLASS_HIDDEN);
+      document.addEventListener('keydown', isEscPress);
     }
   };
   var showPhoto = function (pictureElement) {
@@ -15,14 +16,18 @@
     galleryOverlay.querySelector('.likes-count').textContent = pictureElement.querySelector('.picture-likes').textContent;
     galleryOverlay.querySelector('.comments-count').textContent = pictureElement.querySelector('.picture-comments').textContent;
   };
-  var closePopup = function () {
-    galleryOverlay.classList.add(window.utils.CLASS_HIDDEN);
-  };
-  document.addEventListener('keydown', function (evt) {
+
+  var isEscPress = function (evt) {
     if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
       closePopup();
     }
-  });
+  };
+
+  var closePopup = function () {
+    galleryOverlay.classList.add(window.utils.CLASS_HIDDEN);
+    document.removeEventListener('keydown', isEscPress);
+  };
+
   galleryOverlay.addEventListener('keydown', function (evt) {
     if (evt.target.classList.contains(CHECK_CLOSE_GALLERY) && evt.keyCode === window.utils.ENTER_KEYCODE) {
       closePopup();

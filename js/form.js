@@ -88,8 +88,19 @@
 
   window.initializeFilters(changeImageEffectHandler);
 
+  var isEscPress = function (evt) {
+    if (evt.keyCode === window.utils.ESCAPE_KEYCODE) {
+      onCloseFramingForm();
+    }
+  };
+
+  var isEnterPress = function (evt) {
+    if (evt.target.classList.contains(cancelFraming.className) && evt.keyCode === window.utils.ENTER_KEYCODE) {
+      onCloseFramingForm();
+    }
+  };
   // функция закрытия формы кадрирования
-  window.onCloseFramingForm = function () {
+  var onCloseFramingForm = function () {
     uploadOverlay.classList.add(window.utils.CLASS_HIDDEN);
     downloadForm.classList.remove(window.utils.CLASS_HIDDEN);
     pictureElement.style.filter = 'none';
@@ -97,8 +108,8 @@
     uploadPin.style.left = 0;
     uploadLineVal.style.width = 0;
     uploadForm.reset();
-    document.removeEventListener('keydown', window.utils.isEscPress);
-    document.removeEventListener('keydown', window.utils.isEnterPress);
+    document.removeEventListener('keydown', isEscPress);
+    document.removeEventListener('keydown', isEnterPress);
   };
 
 // функция открытия формы кадрирования
@@ -106,8 +117,8 @@
   var onInputOpenFramingForm = function () {
     uploadOverlay.classList.remove(window.utils.CLASS_HIDDEN);
     downloadForm.classList.add(window.utils.CLASS_HIDDEN);
-    document.addEventListener('keydown', window.utils.isEscPress);
-    document.addEventListener('keydown', window.utils.isEnterPress);
+    document.addEventListener('keydown', isEscPress);
+    document.addEventListener('keydown', isEnterPress);
 
   };
 
