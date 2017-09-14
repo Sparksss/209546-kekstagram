@@ -234,7 +234,7 @@
   });
 
   uploadForm.addEventListener('submit', function (evt) {
-    hashTags.value.trim();
+    hashTags.value = hashTags.value.trim();
     window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
     evt.preventDefault();
   });
