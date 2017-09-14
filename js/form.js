@@ -31,6 +31,8 @@
 
   var fileChooser = uploadForm.querySelector('#upload-file');
 
+  var submitButton = uploadForm.querySelector('#upload-submit');
+
   var options = {
     currentEffect: null,
     selectedEffect: 'none',
@@ -108,6 +110,7 @@
     uploadPin.style.left = 0;
     uploadLineVal.style.width = 0;
     uploadForm.reset();
+    submitButton.disabled = false;
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('keydown', onEnterPress);
   };
@@ -235,6 +238,7 @@
 
   uploadForm.addEventListener('submit', function (evt) {
     hashTags.value = hashTags.value.trim();
+    submitButton.disabled = true;
     window.backend.save(new FormData(uploadForm), onCloseFramingForm, window.backend.showError);
     evt.preventDefault();
   });
