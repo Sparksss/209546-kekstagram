@@ -12,9 +12,9 @@
 
   var pictureTemplate = document.querySelector('#picture-template').content;
   window.pictures = {
-    getRenderPhotos: function (photoCollection) {
+    getRenderPhotos: function (photos) {
       var fragment = document.createDocumentFragment();
-      photoCollection.forEach(function (photo) {
+      photos.forEach(function (photo) {
         fragment.appendChild(getRenderPictures(photo));
       });
       return fragment;

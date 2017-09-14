@@ -109,10 +109,10 @@
 
 // функция проверки хеш-тегов на идентичность
 
-  var checkForTheSameWord = function (listTags, index) {
-    var lengthListTags = listTags.length;
+  var checkForTheSameWord = function (tags, index) {
+    var lengthListTags = tags.length;
     for (var j = 1; j < lengthListTags; j++) {
-      if (listTags[j] === listTags[index] && j !== index) {
+      if (tags[j] === tags[index] && j !== index) {
         hashTags.setCustomValidity('Теги не должны повторяться!');
         break;
       }
@@ -151,6 +151,7 @@
           hashTags.setCustomValidity('Длина 1 тега не должна превышать 20 символов!');
           break;
         }
+
         if (lengthListHashTags > 1) {
           checkForTheSameWord(listHashTags, l);
         }

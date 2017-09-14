@@ -6,8 +6,8 @@
   croppingForm.classList.add(window.utils.CLASS_HIDDEN);
   var filters = document.querySelector('.filters');
 
-  var loadGallery = function (photosDataList) {
-    similarPictureElement.appendChild(window.pictures.getRenderPhotos(photosDataList));
+  var loadGallery = function (photos) {
+    similarPictureElement.appendChild(window.pictures.getRenderPhotos(photos));
     similarPictureElement.addEventListener('click', function (evt) {
       evt.preventDefault();
       if (evt.target.parentNode.classList.contains('picture')) {
@@ -21,10 +21,10 @@
       });
     });
     var renderFilters = function (value) {
-      var copiesOfCollections = photosDataList.slice(0);
+      var copiesOfPhotos = photos.slice(0);
       switch (value) {
         case 'popular':
-          copiesOfCollections.sort(function (left, right) {
+          copiesOfPhotos.sort(function (left, right) {
             if (left.likes < right.likes) {
               return 1;
             } else if (left.likes > right.likes) {
@@ -35,7 +35,7 @@
           });
           break;
         case 'discussed':
-          copiesOfCollections.sort(function (left, right) {
+          copiesOfPhotos.sort(function (left, right) {
             if (left.comments.length < right.comments.length) {
               return 1;
             } else if (left.comments.length > right.comments.length) {
@@ -46,13 +46,13 @@
           });
           break;
         case 'random':
-          copiesOfCollections.sort(function () {
+          copiesOfPhotos.sort(function () {
             return 0.5 - Math.random();
           });
           break;
       }
       similarPictureElement.innerHTML = '';
-      similarPictureElement.appendChild(window.pictures.getRenderPhotos(copiesOfCollections));
+      similarPictureElement.appendChild(window.pictures.getRenderPhotos(copiesOfPhotos));
     };
 
   };
