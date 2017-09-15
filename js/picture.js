@@ -3,18 +3,18 @@
 (function () {
 
   var getRenderPictures = function (photo) {
-    var photoElement = pictureTemplate.cloneNode(true);
+    var photoElement = templateForPictures.cloneNode(true);
     photoElement.querySelector('img').src = photo.url;
     photoElement.querySelector('.picture-comments').textContent = photo.comments.length;
     photoElement.querySelector('.picture-likes').textContent = photo.likes;
     return photoElement;
   };
 
-  var pictureTemplate = document.querySelector('#picture-template').content;
+  var templateForPictures = document.querySelector('#picture-template').content;
   window.pictures = {
-    getRenderPhotos: function (photoCollection) {
+    getRenderPhotos: function (photos) {
       var fragment = document.createDocumentFragment();
-      photoCollection.forEach(function (photo) {
+      photos.forEach(function (photo) {
         fragment.appendChild(getRenderPictures(photo));
       });
       return fragment;
